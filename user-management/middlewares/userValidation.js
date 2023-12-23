@@ -6,5 +6,3 @@ export const userValidation = [
     body('phoneNumber').isMobilePhone(),
     body('password').isStrongPassword(),
 ];
-export const deleteUserValidation = [
-];

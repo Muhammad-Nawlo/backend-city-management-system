@@ -1,7 +1,8 @@
 import express from "express";
 import validateRequest from "../middlewares/validateRequest.js";
 import UserController from "../controllers/UserController.js";
-import {deleteUserValidation, userValidation} from "../middlewares/userValidation.js";
+import { userValidation} from "../middlewares/userValidation.js";
+import catchErrors from "../handlers/catchErrors.js";
 
 const router = express.Router();
 
@@ -17,10 +18,11 @@ const router = express.Router();
  */
 const userController = new UserController();
 
-router.get('/', userController.all);
-router.post('/', userValidation, validateRequest, userController.create);
-router.put('/:id', userValidation, validateRequest, userController.update);
-router.delete('/:id', deleteUserValidation, validateRequest, userController.delete);
-router.get('/:id', userController.get);
+router.get('/', catchErrors(userController.all));
+router.post('/', userValidation, validateRequest, catchErrors(userController.create));
+router.put('/:id', userValidation, validateRequest, catchErrors(userController.update));
+router.delete('/:id',  validateRequest, catchErrors(userController.delete));
+router.get('/:id', catchErrors(userController.get));
+router.post('/:userId/role/:roleId', catchErrors(userController.assignRole));
 
 export default router;

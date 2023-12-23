@@ -7,9 +7,7 @@ const moduleService = new ModuleService();
 class ModuleController {
     async all(req, res, next) {
         const modules = await moduleService.all();
-        if (!modules) {
-            throw new Error(modules);
-        }
+
         ResponseHelper.success(res, modules);
     }
 
@@ -17,9 +15,7 @@ class ModuleController {
         const {name, slug} = req.body;
         const moduleDTO = new ModuleDTO(name, slug);
         const newModule = await moduleService.create(moduleDTO);
-        if (!newModule) {
-            throw new Error(newModule);
-        }
+
         ResponseHelper.created(res, newModule);
     }
 
@@ -28,9 +24,7 @@ class ModuleController {
         const {name, slug} = req.body;
         const moduleDTO = new ModuleDTO(name, slug, id);
         const module = await moduleService.update(moduleDTO);
-        if (!module) {
-            throw new Error(module);
-        }
+
         ResponseHelper.success(res, module);
     }
 
@@ -38,9 +32,7 @@ class ModuleController {
         const moduleDTO = new ModuleDTO();
         moduleDTO.id = req.params.id;
         const module = await moduleService.delete(moduleDTO);
-        if (!module) {
-            throw new Error(module);
-        }
+
         ResponseHelper.success(res, module);
     }
 
@@ -48,10 +40,9 @@ class ModuleController {
         const moduleDTO = new ModuleDTO();
         moduleDTO.id = req.params.id;
         const module = await moduleService.get(moduleDTO);
-        if (!module) {
-            throw new Error(module);
-        }
+
         ResponseHelper.success(res, module);
     }
 }
+
 export default ModuleController;

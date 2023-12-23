@@ -12,7 +12,13 @@ const Schema = new mongoose.Schema({
         allowNull: false,
         required: true,
         unique: true
-    }
+    },
+    permissions: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'Permission'
+        }
+    ]
 }, {timestamps: true});
 
 

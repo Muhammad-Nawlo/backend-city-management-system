@@ -12,6 +12,12 @@ const Schema = new mongoose.Schema({
         allowNull: false,
         required: true,
         unique: true
+    },
+    guardName: {
+        type: String,
+        allowNull: false,
+        required: true,
+        default: 'api'
     }
 }, {timestamps: true});
 

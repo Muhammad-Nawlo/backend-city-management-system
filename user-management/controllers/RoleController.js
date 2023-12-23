@@ -1,15 +1,17 @@
 import RoleDTO from "../dto/RoleDTO.js";
 import RoleService from "../services/RoleService.js";
 import ResponseHelper from "../helpers/responseHelper.js";
+import UserDTO from "../dto/UserDTO.js";
+import PermissionDTO from "../dto/PermissionDTO.js";
+import PermissionService from "../services/PermissionService.js";
 
 const roleService = new RoleService();
+const permissionService = new PermissionService();
 
 class RoleController {
     async all(req, res, next) {
         const roles = await roleService.all();
-        if (!roles) {
-            throw new Error(roles);
-        }
+
         return ResponseHelper.success(res, roles);
     }
 
@@ -17,9 +19,7 @@ class RoleController {
         const {name, slug} = req.body;
         const roleDTO = new RoleDTO(name, slug);
         const newRole = await roleService.create(roleDTO);
-        if (!newRole) {
-            throw new Error(newRole);
-        }
+
         return ResponseHelper.created(res, newRole);
     }
 
@@ -28,9 +28,7 @@ class RoleController {
         const {name, slug} = req.body;
         const roleDTO = new RoleDTO(name, slug, id);
         const role = await roleService.update(roleDTO);
-        if (!role) {
-            throw new Error(role);
-        }
+
         ResponseHelper.success(res, role);
     }
 
@@ -38,9 +36,7 @@ class RoleController {
         const roleDTO = new RoleDTO();
         roleDTO.id = req.params.id;
         const role = await roleService.delete(roleDTO);
-        if (!role) {
-            throw new Error(role);
-        }
+
         ResponseHelper.success(res, role);
     }
 
@@ -48,10 +44,25 @@ class RoleController {
         const roleDTO = new RoleDTO();
         roleDTO.id = req.params.id;
         const role = await roleService.get(roleDTO);
-        if (!role) {
-            throw new Error(role);
-        }
+
         ResponseHelper.success(res, role);
+    }
+
+    async assignPermission(req, res, next) {
+        const roleDTO = new RoleDTO();
+        roleDTO.id = req.params.roleId;
+
+        const permissionDTO = new PermissionDTO();
+        permissionDTO.id = req.params.permissionId;
+
+        const permission = await permissionService.get(permissionDTO);
+        const role = await roleService.get(roleDTO);
+        if (!permission || !role) {
+            throw new Error('Role or Permission not found');
+        }
+        const result = await roleService.assignPermission( roleDTO,permissionDTO);
+
+        ResponseHelper.success(res, result);
     }
 }
 
