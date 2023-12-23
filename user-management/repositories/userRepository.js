@@ -1,4 +1,7 @@
 import User from "../models/User.js";
+import Role from "../models/Role.js";
+import NotFoundError from "../errors/notFoundError.js";
+
 class UserRepository {
     async create(userDTO) {
         const newUser = new User({
@@ -9,24 +12,20 @@ class UserRepository {
         });
         newUser.setPassword(userDTO.password);
         const user = await newUser.save();
-        if (!user) {
-            throw new Error(user);
-        }
         return user;
     }
 
     async update(userDTO) {
         const user = await User.findByIdAndUpdate(userDTO.id, {
-                    email: userDTO.email,
-                    phoneNumber: userDTO.phoneNumber,
-                    username: userDTO.username
-                }, {
-                    new: true
-                }
-            )
-        ;
+                email: userDTO.email,
+                phoneNumber: userDTO.phoneNumber,
+                username: userDTO.username
+            }, {
+                new: true
+            }
+        );
         if (!user) {
-            throw new Error(user);
+            throw new NotFoundError();
         }
         return user;
     }
@@ -34,15 +33,15 @@ class UserRepository {
     async delete(userDTO) {
         const user = await User.findByIdAndDelete(userDTO.id);
         if (!user) {
-            throw new Error(user);
+            throw new NotFoundError();
         }
         return user;
     }
 
     async getById(userDTO) {
-        const user = await User.findById(userDTO.id)
+        const user = await User.findById(userDTO.id);
         if (!user) {
-            throw new Error(user);
+            throw new NotFoundError();
         }
         return user;
     }
@@ -50,7 +49,7 @@ class UserRepository {
     async getByUsername(userDTO) {
         const user = await User.findOne({username: userDTO.username});
         if (!user) {
-            throw new Error(user);
+            throw new NotFoundError();
         }
         return user;
     }
@@ -58,7 +57,7 @@ class UserRepository {
     async getByEmail(userDTO) {
         const user = await User.findOne({email: userDTO.email});
         if (!user) {
-            throw new Error(user);
+            throw new NotFoundError();
         }
         return user;
     }
@@ -66,17 +65,25 @@ class UserRepository {
     async getByPhoneNumber(userDTO) {
         const user = await User.findOne({phoneNumber: userDTO.phoneNumber});
         if (!user) {
-            throw new Error(user);
+            throw new NotFoundError();
         }
         return user;
     }
 
     async all() {
-        const user = await User.find().limit(10).exec();
-        if (!user) {
-            throw new Error(user);
-        }
+        const user = await User.find().populate('roles').limit(10).exec();
         return user;
+    }
+
+    async assignRole(userDTO, roleDTO) {
+        const user = await User.findById(userDTO.id);
+        const role = await Role.findById(roleDTO.id);
+        if (!user || !role) {
+            throw new NotFoundError();
+        }
+        user.roles.push(role);
+        const result = await user.save();
+        return result;
     }
 }
 

@@ -4,5 +4,3 @@ export const permissionValidation = [
     body('name').isString(),
     body('slug').isSlug(),
 ];
-export const deletePermissionValidation = [
-];

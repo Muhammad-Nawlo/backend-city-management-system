@@ -23,6 +23,10 @@ const Schema = new mongoose.Schema({
     salt: {
         type: String, allowNull: false, required: true
     },
+    roles: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Role',
+    }],
 }, {
     timestamps: true
 });

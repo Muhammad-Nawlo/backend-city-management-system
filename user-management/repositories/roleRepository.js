@@ -1,30 +1,28 @@
 import Role from "../models/Role.js";
+import User from "../models/User.js";
+import Permission from "../models/Permission.js";
+import NotFoundError from "../errors/notFoundError.js";
 
 class RoleRepository {
 
     async create(roleDTO) {
-        const newRole =await new Role({
+        const newRole = await new Role({
             name: roleDTO.name,
             slug: roleDTO.slug
         });
         const role = await newRole.save();
-        if (!role) {
-            throw new Error(role);
-        }
         return role;
     }
 
     async update(roleDTO) {
-        const role = await Role.findOneAndUpdate({
-            id: roleDTO.id
-        }, {
+        const role = await Role.findByIdAndUpdate(roleDTO.id, {
             name: roleDTO.name,
             slug: roleDTO.slug,
-        },{
+        }, {
             new: true
         });
         if (!role) {
-            throw new Error(role);
+            throw new NotFoundError();
         }
         return role;
     }
@@ -32,7 +30,7 @@ class RoleRepository {
     async delete(roleDTO) {
         const role = await Role.findByIdAndDelete(roleDTO.id);
         if (!role) {
-            throw new Error(role);
+            throw new NotFoundError();
         }
         return role;
     }
@@ -40,18 +38,25 @@ class RoleRepository {
     async getById(roleDTO) {
         const role = await Role.findById(roleDTO.id)
         if (!role) {
-            throw new Error(role);
+            throw new NotFoundError();
         }
         return role;
     }
 
     async all() {
         const roles = await Role.find().limit(10).exec();
-        console.log(roles);
-        if (!roles) {
-            throw new Error(roles);
-        }
         return roles;
+    }
+
+    async assignPermission(roleDTO, permissionDTO) {
+        const permission = await Permission.findById(permissionDTO.id);
+        const role = await Role.findById(roleDTO.id);
+        if (!role || !permission) {
+            throw new NotFoundError();
+        }
+        role.permissions.push(permission);
+        const result = await role.save();
+        return result;
     }
 }
 
