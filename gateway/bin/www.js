@@ -7,19 +7,18 @@
 import app from '../app.js';
 import createDebug from 'debug';
 
-const debug = createDebug('user-management:server');
+const debug = createDebug('proxy:server');
 
 import http from "http";
 // get config
 import config from '../config/config.js';
 
-import mongoose from "mongoose";
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(config.port || '3000');
+const port = normalizePort(config.port || '8000');
 app.set('port', port);
 
 /**
@@ -31,11 +30,6 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-mongoose.connect(config.mongoConnection).then(() => {
-    console.log('Connected to MongoDB')
-}).catch((err) => {
-    console.error('Error connecting to the database:', err.message);
-});
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

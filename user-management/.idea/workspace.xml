@@ -4,44 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6a40525-f327-413b-b602-1c00c1dc7381" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/AuthController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AuthController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/ModuleController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ModuleController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/PermissionController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/PermissionController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/RoleController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/RoleController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/UserController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/UserController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dto/PermissionDTO.js" beforeDir="false" afterPath="$PROJECT_DIR$/dto/PermissionDTO.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dto/RoleDTO.js" beforeDir="false" afterPath="$PROJECT_DIR$/dto/RoleDTO.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dto/UserDTO.js" beforeDir="false" afterPath="$PROJECT_DIR$/dto/UserDTO.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpers/responseHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/responseHelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middlewares/moduleValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/moduleValidation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middlewares/permissionValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/permissionValidation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middlewares/roleValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/roleValidation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middlewares/userValidation.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/userValidation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Role.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Role.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/User.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories/moduleRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/moduleRepository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories/permissionRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/permissionRepository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories/roleRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/roleRepository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories/userRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/userRepository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/module.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/role.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/role.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/AuthService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/ModuleService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/ModuleService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/PermissionService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/PermissionService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/RoleService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/RoleService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/UserService.js" afterDir="false" />
-    </list>
+    <list default="true" id="e6a40525-f327-413b-b602-1c00c1dc7381" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,24 +35,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/copra/Desktop/backend-city-management-system/user-management/errors",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/opt/PhpStorm-231.9225.18/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/copra/Desktop/backend-city-management-system/user-management/errors&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/opt/PhpStorm-231.9225.18/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/errors" />
@@ -124,6 +87,7 @@
       <workItem from="1701006476839" duration="6154000" />
       <workItem from="1701527285442" duration="45000" />
       <workItem from="1703333109760" duration="11163000" />
+      <workItem from="1703421203349" duration="61000" />
     </task>
     <servers />
   </component>
