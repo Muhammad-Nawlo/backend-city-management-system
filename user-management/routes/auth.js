@@ -1,7 +1,12 @@
 import express from "express";
 import AuthController from "../controllers/AuthController.js";
 import validateRequest from "../middlewares/validateRequest.js";
-import {loginValidation, registerValidation} from "../middlewares/authValidation.js";
+import {
+    forgetPasswordValidation,
+    loginValidation,
+    registerValidation,
+    resetPasswordValidation
+} from "../middlewares/authValidation.js";
 import catchErrors from "../handlers/catchErrors.js";
 
 const router = express.Router();
@@ -12,14 +17,14 @@ router.post('/register', registerValidation, validateRequest, catchErrors(contro
 
 router.post('/login', loginValidation, validateRequest, catchErrors(controller.login));
 
-router.post('/forget-password', catchErrors(controller.forgetPassword));
+router.post('/forget-password', forgetPasswordValidation, catchErrors(controller.forgetPassword));
 
-router.post('/reset-password', catchErrors(controller.resetPassword));
+router.post('/reset-password', resetPasswordValidation, catchErrors(controller.resetPassword));
 
-router.get('/verify-email/:id/:hash', catchErrors(controller.verifyEmail));
+router.get('/verify-email/:id/:token', catchErrors(controller.verifyEmail));
 
-router.post('/email/verification-notification', catchErrors(controller.sendEmailVerification));
+router.post('/verify-email', catchErrors(controller.sendEmailVerification));
 
-router.post('/logout', catchErrors(controller.logout));
+// router.post('/logout', catchErrors(controller.logout));
 
 export default router;

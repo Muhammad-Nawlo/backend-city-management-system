@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Role from "../models/Role.js";
 import NotFoundError from "../errors/notFoundError.js";
+import {now} from "mongoose";
 
 class UserRepository {
     async create(userDTO) {
@@ -64,6 +65,17 @@ class UserRepository {
 
     async getByPhoneNumber(userDTO) {
         const user = await User.findOne({phoneNumber: userDTO.phoneNumber});
+        if (!user) {
+            throw new NotFoundError();
+        }
+        return user;
+    }
+
+    async getByToken(token) {
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: {$gt: Date.now()}
+        });
         if (!user) {
             throw new NotFoundError();
         }

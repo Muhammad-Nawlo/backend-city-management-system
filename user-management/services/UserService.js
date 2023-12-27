@@ -1,4 +1,6 @@
 import UserRepository from "../repositories/userRepository.js";
+import User from "../models/User.js";
+import NotFoundError from "../errors/notFoundError.js";
 
 const userRepository = new UserRepository();
 
@@ -34,6 +36,36 @@ export class UserService {
     async assignRole(userDTO, roleDTO) {
         const result = await userRepository.assignRole(userDTO, roleDTO);
         return result;
+    }
+
+    async getById(userDTO) {
+
+        const user = await userRepository.getById(userDTO);
+
+        return user;
+    }
+
+    async getByUsername(userDTO) {
+        const user = await userRepository.getByUsername(userDTO);
+
+        return user;
+    }
+
+    async getByEmail(userDTO) {
+        const user = await userRepository.getByEmail(userDTO);
+
+        return user;
+    }
+
+    async getByPhoneNumber(userDTO) {
+        const user = await userRepository.getByPhoneNumber(userDTO);
+
+        return user;
+    }
+    async getByToken(token) {
+        const user = await userRepository.getByToken(token);
+
+        return user;
     }
 }
 

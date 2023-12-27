@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import * as crypto from "crypto";
+import config from "../config/config.js";
 
 const Schema = new mongoose.Schema({
     username: {
@@ -14,6 +15,10 @@ const Schema = new mongoose.Schema({
     verifiedAt: {
         type: Date, allowNull: true,
     },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
+    verifyToken: String,
+    verifyTokenExpires: Date,
     status: {
         type: Number, required: true, default: 1
     },
@@ -49,6 +54,16 @@ Schema.methods.validPassword = function (password) {
         this.salt, 1000, 64, `sha512`).toString(`hex`);
     return this.hash === hash;
 };
+
+Schema.methods.generateResetToken = function () {
+    this.resetPasswordToken = crypto.randomBytes(20).toString('hex');
+    this.resetPasswordExpires = Date.now() + Math.round(config.tokenExpiredTime * 3600000);
+}
+
+Schema.methods.generateVerifyToken = function () {
+    this.verifyToken = crypto.randomBytes(20).toString('hex');
+    this.verifyTokenExpires = Date.now() + Math.round(config.tokenExpiredTime * 3600000);
+}
 
 const User = mongoose.model('User', Schema);
 export default User;
