@@ -12,3 +12,12 @@ export const registerValidation = [
     body('password').isStrongPassword(),
 ];
 
+export const forgetPasswordValidation = [
+    body('email').isEmail()
+];
+
+export const resetPasswordValidation = [
+    body('token').isString(),
+    body('password').isStrongPassword()
+];
+

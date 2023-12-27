@@ -7,6 +7,7 @@ const config = {
     port: process.env.PORT,
     jwtSecret: process.env.SHARED_SECRET_KEY_JWT,
     bcryptSalt: process.env.BCRYPT_SALT,
-    env: process.env.ENV || 'development'
+    env: process.env.ENV || 'development',
+    tokenExpiredTime: process.env.TOKEN_EXPIRED_TIME_HOUR
 };
 export default config;
