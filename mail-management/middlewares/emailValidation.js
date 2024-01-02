@@ -6,3 +6,10 @@ export const emailValidation = [
     body('subject').isString(),
     body('body').isString()
 ];
+
+export const resetPasswordValidation = [
+    body('email').isEmail()
+];
+export const verificationEmailValidation = [
+    body('email').isEmail()
+];

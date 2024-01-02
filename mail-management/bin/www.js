@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Module dependencies.
+ * Service dependencies.
  */
 
 import app from '../app.js';
@@ -21,6 +21,8 @@ import mongoose from "mongoose";
 
 const port = normalizePort(config.port || '3001');
 app.set('port', port);
+app.set('views', './views');
+app.set('view engine', 'pug');
 
 /**
  * Create HTTP server.

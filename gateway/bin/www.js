@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Module dependencies.
+ * Service dependencies.
  */
 
 import app from '../app.js';

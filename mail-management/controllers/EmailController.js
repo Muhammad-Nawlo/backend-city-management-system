@@ -33,4 +33,17 @@ export default class EmailController {
 
         ResponseHelper.success(res, email);
     }
+
+    async resetPassword(req, res, next) {
+        const {email} = req.body;
+        const result = await emailService.resetPassword(email);
+        ResponseHelper.success(res, result);
+
+    }
+
+    async verificationEmail(req, res, next) {
+        const {email} = req.body;
+        const result = await emailService.verificationEmail(email);
+        ResponseHelper.success(res, result);
+    }
 }

@@ -6,7 +6,13 @@ import logger from 'morgan';
 import cors from 'cors';
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 
-import emailRouter from './routes/email.js';
+
+import authRouter from './routes/auth.js';
+import userRouter from './routes/user.js';
+import moduleRouter from './routes/module.js';
+import roleRouter from './routes/role.js';
+import permissionRouter from './routes/permission.js';
+import config from "./config/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,7 +26,12 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', emailRouter);
+app.use('/users', userRouter);
+app.use('/roles', roleRouter);
+app.use('/permissions', permissionRouter);
+app.use('/modules', moduleRouter);
+app.use('/', authRouter);
+
 
 app.use(errorHandlerMiddleware);
 
