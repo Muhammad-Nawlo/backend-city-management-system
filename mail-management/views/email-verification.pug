@@ -1,0 +1,14 @@
+html(lang='en-US')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(content='text/html', charset='utf-8' http-equiv='Content-Type')
+        meta(name='description', content='Email verification')
+        title Email verification
+    body
+        h1 Email verification
+        p Dear #{email},
+        p You recently requested to verify your  account. Please click on the link below to verify your email:
+        a(href=verifyLink) verify your account
+        p Thanks,
+        p #{appName}

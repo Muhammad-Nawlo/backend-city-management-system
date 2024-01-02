@@ -21,6 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/emails', proxy(config.emailManagementServiceUrl));
+app.use('/services', proxy(config.serviceManagementServiceUrl));
 app.use('/', proxy(config.userManagementServiceUrl)); //default route
 
 

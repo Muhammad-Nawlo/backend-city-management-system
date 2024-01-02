@@ -15,5 +15,5 @@ const Schema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-const Module = mongoose.model('Module', Schema);
-export default Module;
+const Service = mongoose.model('Service', Schema);
+export default Service;

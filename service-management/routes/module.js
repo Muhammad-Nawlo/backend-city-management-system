@@ -1,18 +1,18 @@
 import express from "express";
-import ModuleController from "../controllers/ModuleController.js";
+import ServiceController from "../controllers/ServiceController.js";
 import verified from "../middlewares/verified.js";
 import authJWT from "../middlewares/authJWT.js";
-import { moduleValidation} from "../middlewares/moduleValidation.js";
+import { serviceValidation} from "../middlewares/serviceValidation.js";
 import catchErrors from "../handlers/catchErrors.js";
 import validateRequest from "../middlewares/validateRequest.js";
 
 const router = express.Router();
 
-const moduleController = new ModuleController();
+const moduleController = new ServiceController();
 
 router.get('/', catchErrors(moduleController.all));
-router.post('/', moduleValidation, validateRequest, catchErrors(moduleController.create));
-router.put('/:id', moduleValidation, validateRequest, catchErrors(moduleController.update));
+router.post('/', serviceValidation, validateRequest, catchErrors(moduleController.create));
+router.put('/:id', serviceValidation, validateRequest, catchErrors(moduleController.update));
 router.delete('/:id', validateRequest, catchErrors(moduleController.delete));
 router.get('/:id', catchErrors(moduleController.get));
 

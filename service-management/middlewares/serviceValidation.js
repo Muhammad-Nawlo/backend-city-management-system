@@ -1,6 +1,6 @@
 import {body} from 'express-validator';
 
-export const moduleValidation = [
+export const serviceValidation = [
     body('name').isString(),
     body('slug').isSlug()
 ];

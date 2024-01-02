@@ -1,7 +1,8 @@
 import express from "express";
 import catchErrors from "../handlers/catchErrors.js";
 import EmailController from "../controllers/EmailController.js";
-import {emailValidation} from "../middlewares/emailValidation.js";
+import {emailValidation, resetPasswordValidation, verificationEmailValidation} from "../middlewares/emailValidation.js";
+import validateRequest from "../middlewares/validateRequest.js";
 
 const router = express.Router();
 
@@ -16,7 +17,9 @@ const router = express.Router();
 const emailController = new EmailController();
 
 router.get('/', catchErrors(emailController.all));
-router.post('/',emailValidation, catchErrors(emailController.create));
+router.post('/', emailValidation, catchErrors(emailController.create));
+router.post('/reset-password', resetPasswordValidation, validateRequest, catchErrors(emailController.resetPassword));
+router.post('/email-verify', verificationEmailValidation, validateRequest, catchErrors(emailController.verificationEmail));
 router.delete('/:id', catchErrors(emailController.delete));
 router.get('/:id', catchErrors(emailController.get));
 

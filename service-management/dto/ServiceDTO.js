@@ -1,4 +1,4 @@
-class ModuleDTO {
+class ServiceDTO {
     constructor(name = null, slug = null, id = null) {
         this.id = id;
         this.name = name;
@@ -6,4 +6,4 @@ class ModuleDTO {
     }
 }
 
-export default ModuleDTO;
+export default ServiceDTO;
