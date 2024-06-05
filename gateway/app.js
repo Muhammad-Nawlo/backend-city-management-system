@@ -22,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/emails', proxy(config.emailManagementServiceUrl));
 app.use('/services', proxy(config.serviceManagementServiceUrl));
+app.use('/real-estate', proxy(config.realestateManagementServiceUrl));
 app.use('/', proxy(config.userManagementServiceUrl)); //default route
 
 
