@@ -9,7 +9,8 @@ class UserRepository {
             email: userDTO.email,
             password: userDTO.password,
             phoneNumber: userDTO.phoneNumber,
-            username: userDTO.username
+            username: userDTO.username,
+            image: userDTO.image
         });
         newUser.setPassword(userDTO.password);
         const user = await newUser.save();
@@ -17,17 +18,18 @@ class UserRepository {
     }
 
     async update(userDTO) {
-        const user = await User.findByIdAndUpdate(userDTO.id, {
-                email: userDTO.email,
-                phoneNumber: userDTO.phoneNumber,
-                username: userDTO.username
-            }, {
-                new: true
-            }
-        );
+        const user = await User.findById(userDTO.id)
         if (!user) {
             throw new NotFoundError();
         }
+        user.email = userDTO.email;
+        user.phoneNumber = userDTO.phoneNumber;
+        user.username = userDTO.username;
+        if (userDTO.image !== 'DONT_UPDATE') {
+            user.image = userDTO.image;
+        }
+        await user.save();
+
         return user;
     }
 

@@ -3,6 +3,7 @@ import validateRequest from "../middlewares/validateRequest.js";
 import UserController from "../controllers/UserController.js";
 import { userValidation} from "../middlewares/userValidation.js";
 import catchErrors from "../handlers/catchErrors.js";
+import Uploads from "../middlewares/multerConfig.js";
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ const router = express.Router();
 const userController = new UserController();
 
 router.get('/', catchErrors(userController.all));
+
 router.post('/', userValidation, validateRequest, catchErrors(userController.create));
 router.put('/:id', userValidation, validateRequest, catchErrors(userController.update));
 router.delete('/:id',  validateRequest, catchErrors(userController.delete));
