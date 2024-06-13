@@ -16,14 +16,41 @@ const app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cors());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/emails', proxy(config.emailManagementServiceUrl));
-app.use('/services', proxy(config.serviceManagementServiceUrl));
-app.use('/real-estate', proxy(config.realestateManagementServiceUrl));
-app.use('/', proxy(config.userManagementServiceUrl)); //default route
+// check if the request is multipart
+const isMultipartRequest = function (req) {
+    const contentTypeHeader = req.headers['content-type']
+    return contentTypeHeader && contentTypeHeader.indexOf('multipart') > -1
+}
+
+const proxyHandler = function (host) {
+    return function (req, res, next) {
+        let reqBodyEncoding
+        let reqAsBuffer = false
+        let parseReqBody = true
+
+        if (isMultipartRequest(req)) {
+            reqAsBuffer = true
+            reqBodyEncoding = null
+            parseReqBody = false
+        }
+        return proxy(host, {
+            reqAsBuffer,
+            reqBodyEncoding,
+            parseReqBody
+        })(req, res, next)
+    }
+}
+
+
+const prefix = '/api'
+app.use(`${prefix}/emails`, proxyHandler(config.emailManagementServiceUrl));
+app.use(`${prefix}/services`, proxyHandler(config.serviceManagementServiceUrl));
+app.use(`${prefix}/real-estate`, proxyHandler(config.realestateManagementServiceUrl));
+app.use(`${prefix}`, proxyHandler(config.userManagementServiceUrl)); //default route
 
 
 export default app;

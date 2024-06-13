@@ -12,6 +12,10 @@ const Schema = new mongoose.Schema({
     phoneNumber: {
         type: String, allowNull: false, unique: true, required: true
     },
+    image: {
+        type: String,
+        allowNull: true,
+    },
     verifiedAt: {
         type: Date, allowNull: true,
     },
@@ -64,6 +68,13 @@ Schema.methods.generateVerifyToken = function () {
     this.verifyToken = crypto.randomBytes(20).toString('hex');
     this.verifyTokenExpires = Date.now() + Math.round(config.tokenExpiredTime * 3600000);
 }
+Schema.virtual('fullImageUrl').get(function () {
+    return `${config.fileUrl}${this.image}`;
+
+})
+Schema.set('toJSON', {virtuals: true});
+Schema.set('toObject', {virtuals: true});
+
 
 const User = mongoose.model('User', Schema);
 export default User;

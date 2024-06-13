@@ -3,6 +3,7 @@ import ResponseHelper from "../helpers/responseHelper.js";
 import UserService from "../services/UserService.js";
 import RoleDTO from "../dto/RoleDTO.js";
 import RoleService from "../services/RoleService.js";
+import UploadFile from "../helpers/uploadFile.js";
 
 const userService = new UserService();
 const roleService = new RoleService();
@@ -14,8 +15,9 @@ class UserController {
     }
 
     async create(req, res, next) {
+        const imagePath = await UploadFile(req)
         const {email, username, phoneNumber, password} = req.body;
-        const userDTO = new UserDTO(username, email, phoneNumber, password);
+        const userDTO = new UserDTO(username, email, phoneNumber, password, imagePath);
         const newUser = await userService.create(userDTO);
         if (!newUser) {
             return next(res);
@@ -25,8 +27,10 @@ class UserController {
 
     async update(req, res, next) {
         const {id} = req.params;
+        const imagePath = await UploadFile(req, true)
+
         const {email, username, phoneNumber, password} = req.body;
-        const userDTO = new UserDTO(username, email, phoneNumber, password, id);
+        const userDTO = new UserDTO(username, email, phoneNumber, password, imagePath, id);
         const user = await userService.update(userDTO);
         return ResponseHelper.success(res, user);
     }
