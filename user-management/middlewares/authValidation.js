@@ -1,23 +1,28 @@
-import {body} from "express-validator";
+import {body, oneOf} from "express-validator";
 
 export const loginValidation = [
-    body('email').isEmail(),
-    body('password').isString(),
+    oneOf([
+        body('email').notEmpty().trim().isEmail(),
+        body('username').notEmpty().trim().isString(),
+        body('phoneNumber').notEmpty().trim().isMobilePhone(),
+
+    ]),
+    body('password').notEmpty().trim().isString(),
 ];
 
 export const registerValidation = [
-    body('email').isEmail(),
-    body('username').isString(),
-    body('phoneNumber').isMobilePhone(),
-    body('password').isStrongPassword(),
+    body('email').notEmpty().trim().isEmail(),
+    body('username').notEmpty().trim().isString(),
+    body('phoneNumber').notEmpty().trim().isMobilePhone(),
+    body('password').notEmpty().trim().isStrongPassword(),
 ];
 
 export const forgetPasswordValidation = [
-    body('email').isEmail()
+    body('email').notEmpty().trim().isEmail()
 ];
 
 export const resetPasswordValidation = [
-    body('token').isString(),
-    body('password').isStrongPassword()
+    body('token').notEmpty().trim().isString(),
+    body('password').notEmpty().trim().isStrongPassword()
 ];
 

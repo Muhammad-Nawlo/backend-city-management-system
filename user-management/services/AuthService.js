@@ -14,9 +14,9 @@ export class AuthService {
             if (userDTO.email) {
                 user = await userRepository.getByEmail(userDTO);
             } else if (userDTO.phoneNumber) {
-                user = await userRepository.getByEmail(userDTO);
+                user = await userRepository.getByPhoneNumber(userDTO);
             } else {
-                user = await userRepository.getByEmail(userDTO);
+                user = await userRepository.getByUsername(userDTO);
             }
         } catch (e) {
             throw new AuthError();
@@ -26,7 +26,7 @@ export class AuthService {
             throw new AuthError();
         }
         const token = jwt.sign({userId: user._id}, config.jwtSecret);
-        return token;
+        return {token, user};
     }
 
     async register(userDTO) {

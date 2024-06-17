@@ -4,7 +4,6 @@ import ResponseHelper from "../helpers/responseHelper.js";
 const userRepository = new UserRepository();
 const verified = async (req, res, next) => {
     const userId = req.user;
-    console.log(userId)
     try {
         const user = await userRepository.getById(userId)
         if (!user) {
