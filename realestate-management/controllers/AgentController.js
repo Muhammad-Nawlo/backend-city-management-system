@@ -1,6 +1,7 @@
 import AgentDTO from "../dto/AgentDTO.js";
 import ResponseHelper from "../helpers/responseHelper.js";
 import AgentService from "../services/AgentService.js";
+import UploadFile from "../helpers/uploadFile.js";
 
 const agentService = new AgentService();
 
@@ -11,8 +12,9 @@ class AgentController {
     }
 
     async create(req, res, next) {
+        const imagePath = await UploadFile(req);
         const {email, username, phoneNumber, fullName, licenseNumber} = req.body;
-        const agentDTO = new AgentDTO(email, username, phoneNumber, fullName, licenseNumber);
+        const agentDTO = new AgentDTO(email, username, phoneNumber, fullName, licenseNumber, imagePath);
         const newAgent = await agentService.create(agentDTO);
         if (!newAgent) {
             return next(res);
@@ -21,9 +23,11 @@ class AgentController {
     }
 
     async update(req, res, next) {
+        const imagePath = await UploadFile(req, true)
+
         const {id} = req.params;
         const {email, username, phoneNumber, fullName, licenseNumber} = req.body;
-        const agentDTO = new AgentDTO(email, username, phoneNumber, fullName, licenseNumber, id);
+        const agentDTO = new AgentDTO(email, username, phoneNumber, fullName, licenseNumber, imagePath, id);
         const agent = await agentService.update(agentDTO);
         return ResponseHelper.success(res, agent);
     }

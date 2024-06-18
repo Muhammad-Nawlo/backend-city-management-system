@@ -9,7 +9,7 @@ class MaintenanceRequestRepository {
             tenantId: maintenanceRequestDTO.tenantId,
             date: maintenanceRequestDTO.date,
             description: maintenanceRequestDTO.description,
-            image: maintenanceRequestDTO.image,
+            images: maintenanceRequestDTO.images,
             status: maintenanceRequestDTO.status,
         });
         const maintenanceRequest = await newMaintenanceRequest.save();
@@ -17,20 +17,19 @@ class MaintenanceRequestRepository {
     }
 
     async update(maintenanceRequestDTO) {
-        const maintenanceRequest = await MaintenanceRequest.findByIdAndUpdate(maintenanceRequestDTO.id, {
-            propertyId: maintenanceRequestDTO.propertyId,
-            tenantId: maintenanceRequestDTO.tenantId,
-            date: maintenanceRequestDTO.date,
-            description: maintenanceRequestDTO.description,
-            image: maintenanceRequestDTO.image,
-            status: maintenanceRequestDTO.status,
-            }, {
-                new: true
-            }
-        );
-        if (!maintenanceRequest) {
-            throw new NotFoundError();
+        const maintenanceRequest = await MaintenanceRequest.findById(maintenanceRequestDTO.id)
+
+        maintenanceRequest.propertyId = maintenanceRequestDTO.propertyId;
+        maintenanceRequest.tenantId = maintenanceRequestDTO.tenantId;
+        maintenanceRequest.date = maintenanceRequestDTO.date;
+        maintenanceRequest.description = maintenanceRequestDTO.description;
+        maintenanceRequest.status = maintenanceRequestDTO.status;
+
+        if (maintenanceRequestDTO.images !== 'DONT_UPDATE') {
+            maintenanceRequest.images = maintenanceRequestDTO.images;
         }
+        await maintenanceRequest.save();
+
         return maintenanceRequest;
     }
 

@@ -70,7 +70,6 @@ Schema.methods.generateVerifyToken = function () {
 }
 Schema.virtual('fullImageUrl').get(function () {
     return `${config.fileUrl}${this.image}`;
-
 })
 Schema.set('toJSON', {virtuals: true});
 Schema.set('toObject', {virtuals: true});

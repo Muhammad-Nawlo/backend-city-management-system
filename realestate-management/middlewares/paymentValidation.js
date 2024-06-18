@@ -4,6 +4,6 @@ import {body} from 'express-validator';
 export const paymentValidation = [
     body('rentalId').isString(),
     body('tenantId').isString(),
-    body('date').isDate(),
+    body('date').isISO8601().toDate(),
     body('amount').isNumeric(),
 ];

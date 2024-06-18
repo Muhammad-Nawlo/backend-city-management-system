@@ -4,7 +4,7 @@ class MaintenanceRequestDTO {
         tenantId = null,
         date = null,
         description = null,
-        image = null,
+        images = null,
         status = null,
         id = null
     ) {
@@ -12,7 +12,7 @@ class MaintenanceRequestDTO {
         this.tenantId = tenantId;
         this.date = date;
         this.description = description;
-        this.image = image;
+        this.images = images;
         this.status = status;
         this.id = id;
     }

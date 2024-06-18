@@ -1,17 +1,18 @@
 import {body} from 'express-validator';
+import exsistHandler from "../helpers/exsistHandler.js";
+import PropertyType from "../models/PropertyType.js";
 
 export const propertyValidation = [
-    body('address').isString(),
-    body('city').isString(),
-    body('state').isString(),
+    body('address').notEmpty().trim().isString(),
+    body('city').notEmpty().trim().isString(),
+    body('state').notEmpty().trim().isString(),
     body('zipcode').isNumeric(),
-    body('type').isString(),
+    body('type').exists().custom(value => exsistHandler(PropertyType, value)),
     body('description').isString(),
-    body('status').isNumeric(),
-    body('price').isNumeric(),
-    body('surfaceArea').isNumeric(),
-    body('buildingArea').isNumeric(),
-    body('bedrooms').isNumeric(),
-    body('bathrooms').isNumeric(),
-    body('images').isArray(),
+    body('status').isFloat({min: 0, max:1000}),
+    body('price').isFloat({min: 0, max:1000}),
+    body('surfaceArea').isFloat({min: 0, max:1000}),
+    body('buildingArea').isFloat({min: 0, max:1000}),
+    body('bedrooms').isFloat({min: 0, max:1000}),
+    body('bathrooms').isFloat({min: 0, max:1000}),
 ];

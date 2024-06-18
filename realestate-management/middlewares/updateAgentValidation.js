@@ -1,6 +1,6 @@
 import {body} from 'express-validator';
 
-export const agentValidation = [
+export const updateAgentValidation = [
     body('email').isEmail(),
     body('username').isString(),
     body('phoneNumber').isMobilePhone(),
