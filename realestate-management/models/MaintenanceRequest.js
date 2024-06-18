@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import config from "../config/config.js";
 
 
 const Schema = new mongoose.Schema({
@@ -14,8 +15,8 @@ const Schema = new mongoose.Schema({
     description: {
         type: String, required: true
     },
-    image: {
-        type: String, allowNull: true
+    images: {
+        type: Array, allowNull: true
     },
     status: {
         type: Number, allowNull: false, default: 1
@@ -23,6 +24,13 @@ const Schema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+Schema.virtual('fullImagesUrl').get(function () {
+    return this.images.map(image => `${config.fileUrl}${image}`);
+})
+Schema.set('toJSON', {virtuals: true});
+Schema.set('toObject', {virtuals: true});
+
 
 const MaintenanceRequest = mongoose.model('MaintenanceRequest', Schema);
 export default MaintenanceRequest;

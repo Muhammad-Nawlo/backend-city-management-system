@@ -1,6 +1,8 @@
 import PropertyDTO from "../dto/PropertyDTO.js";
 import ResponseHelper from "../helpers/responseHelper.js";
 import PropertyService from "../services/PropertyService.js";
+import UploadFile from "../helpers/uploadFile.js";
+import UploadFiles from "../helpers/uploadFiles.js";
 
 const propertyService = new PropertyService();
 
@@ -12,6 +14,8 @@ class PropertyController {
     }
 
     async create(req, res, next) {
+        const imagesPath = await UploadFiles(req);
+
         const {
             address,
             city,
@@ -24,9 +28,9 @@ class PropertyController {
             surfaceArea,
             buildingArea,
             bedrooms,
-            bathrooms,
-            images
+            bathrooms
         } = req.body;
+
         const propertyDTO = new PropertyDTO(
             address,
             city,
@@ -40,7 +44,8 @@ class PropertyController {
             buildingArea,
             bedrooms,
             bathrooms,
-            images);
+            imagesPath
+        );
         const newProperty = await propertyService.create(propertyDTO);
         if (!newProperty) {
             return next(res);
@@ -49,6 +54,8 @@ class PropertyController {
     }
 
     async update(req, res, next) {
+        const imagesPath = await UploadFiles(req,true);
+
         const {id} = req.params;
         const {
             address,
@@ -62,8 +69,7 @@ class PropertyController {
             surfaceArea,
             buildingArea,
             bedrooms,
-            bathrooms,
-            images
+            bathrooms
         } = req.body;
         const propertyDTO = new PropertyDTO(
             address,
@@ -78,7 +84,7 @@ class PropertyController {
             buildingArea,
             bedrooms,
             bathrooms,
-            images,
+            imagesPath,
             id);
         const property = await propertyService.update(propertyDTO);
         return ResponseHelper.success(res, property);

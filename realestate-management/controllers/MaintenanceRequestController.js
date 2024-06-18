@@ -1,6 +1,7 @@
 import MaintenanceRequestDTO from "../dto/MaintenanceRequestDTO.js";
 import ResponseHelper from "../helpers/responseHelper.js";
 import MaintenanceRequestService from "../services/MaintenanceRequestService.js";
+import UploadFiles from "../helpers/uploadFiles.js";
 
 
 const maintenanceRequestService = new MaintenanceRequestService();
@@ -13,8 +14,10 @@ class MaintenanceRequestController {
     }
 
     async create(req, res, next) {
-        const {propertyId, tenantId, date, description, image, status} = req.body;
-        const maintenanceRequestDTO = new MaintenanceRequestDTO(propertyId, tenantId, date, description, image, status);
+        const imagesPath = await UploadFiles(req);
+
+        const {propertyId, tenantId, date, description, status} = req.body;
+        const maintenanceRequestDTO = new MaintenanceRequestDTO(propertyId, tenantId, date, description, imagesPath, status);
         const newMaintenanceRequest = await maintenanceRequestService.create(maintenanceRequestDTO);
         if (!newMaintenanceRequest) {
             return next(res);
@@ -23,9 +26,10 @@ class MaintenanceRequestController {
     }
 
     async update(req, res, next) {
+        const imagesPath = await UploadFiles(req,true);
         const {id} = req.params;
-        const {propertyId, tenantId, date, description, image, status} = req.body;
-        const maintenanceRequestDTO = new MaintenanceRequestDTO(propertyId, tenantId, date, description, image, status, id);
+        const {propertyId, tenantId, date, description, status} = req.body;
+        const maintenanceRequestDTO = new MaintenanceRequestDTO(propertyId, tenantId, date, description, imagesPath, status, id);
         const maintenanceRequest = await maintenanceRequestService.update(maintenanceRequestDTO);
         return ResponseHelper.success(res, maintenanceRequest);
     }

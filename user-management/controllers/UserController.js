@@ -15,7 +15,7 @@ class UserController {
     }
 
     async create(req, res, next) {
-        const imagePath = await UploadFile(req)
+        const imagePath = await UploadFile(req);
         const {email, username, phoneNumber, password} = req.body;
         const userDTO = new UserDTO(username, email, phoneNumber, password, imagePath);
         const newUser = await userService.create(userDTO);
