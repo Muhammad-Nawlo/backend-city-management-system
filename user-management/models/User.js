@@ -68,6 +68,7 @@ Schema.methods.generateVerifyToken = function () {
     this.verifyToken = crypto.randomBytes(20).toString('hex');
     this.verifyTokenExpires = Date.now() + Math.round(config.tokenExpiredTime * 3600000);
 }
+
 Schema.virtual('fullImageUrl').get(function () {
     return `${config.fileUrl}${this.image}`;
 })
