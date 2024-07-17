@@ -7,7 +7,7 @@
 import app from '../app.js';
 import createDebug from 'debug';
 
-const debug = createDebug('user-management:server');
+const debug = createDebug('service-management:server');
 
 import http from "http";
 // get config
@@ -19,7 +19,7 @@ import mongoose from "mongoose";
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(config.port || '3000');
+const port = normalizePort(config.port || '8002');
 app.set('port', port);
 
 /**

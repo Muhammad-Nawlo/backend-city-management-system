@@ -9,24 +9,24 @@ export class ServiceService {
     }
 
     async update(serviceDTO) {
-        const module = await serviceRepository.update(serviceDTO);
-        return module;
+        const service = await serviceRepository.update(serviceDTO);
+        return service;
     }
 
     async delete(serviceDTO) {
-        const module = await serviceRepository.delete(serviceDTO);
-        return module;
+        const service = await serviceRepository.delete(serviceDTO);
+        return service;
     }
 
     async get(serviceDTO) {
-        const module = await serviceRepository.getById(serviceDTO);
-        return module;
+        const service = await serviceRepository.getById(serviceDTO);
+        return service;
     }
 
 
     async all() {
-        const modules = await serviceRepository.all();
-        return modules;
+        const services = await serviceRepository.all();
+        return services;
     }
 }
 

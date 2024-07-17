@@ -1,28 +1,32 @@
-import Service from "../models/Service.js";
-import mongoose from "mongoose";
 import NotFoundError from "../errors/notFoundError.js";
+import Service from "../models/Service.js";
 
 class ServiceRepository {
-
     async create(serviceDTO) {
         const newService = new Service({
             name: serviceDTO.name,
-            slug: serviceDTO.slug
+            slug: serviceDTO.slug,
+            description: serviceDTO.description,
+            image: serviceDTO.image,
+            status: serviceDTO.status
         });
         const service = await newService.save();
         return service;
     }
 
     async update(serviceDTO) {
-        const service = await Service.findByIdAndUpdate(serviceDTO.id, {
-            name: serviceDTO.name,
-            slug: serviceDTO.slug,
-        }, {
-            new: true
-        });
+        const service = await Service.findById(serviceDTO.id)
         if (!service) {
             throw new NotFoundError();
         }
+        service.name = serviceDTO.name;
+        service.slug = serviceDTO.slug;
+        service.status = serviceDTO.status;
+        service.description = serviceDTO.description;
+        if (serviceDTO.image !== 'DONT_UPDATE') {
+            service.image = serviceDTO.image;
+        }
+        await service.save();
         return service;
     }
 
@@ -35,16 +39,15 @@ class ServiceRepository {
     }
 
     async getById(serviceDTO) {
-        const service = await Service.findById(serviceDTO.id)
+        const service = await Service.findById(serviceDTO.id);
         if (!service) {
             throw new NotFoundError();
         }
         return service;
     }
-
     async all() {
-        const services = await Service.find().limit(10).exec();
-        return services;
+        const service = await Service.find().limit(10).exec();
+        return service;
     }
 }
 
