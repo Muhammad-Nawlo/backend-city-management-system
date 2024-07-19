@@ -49,7 +49,8 @@ const proxyHandler = function (host) {
 const prefix = '/api'
 app.use(`${prefix}/emails`, proxyHandler(config.emailManagementServiceUrl));
 app.use(`${prefix}/services`, proxyHandler(config.serviceManagementServiceUrl));
-app.use(`${prefix}/real-estate`, proxyHandler(config.realestateManagementServiceUrl));
+app.use(`${prefix}/real-estates`, proxyHandler(config.realestateManagementServiceUrl));
+app.use(`${prefix}/restaurants`, proxyHandler(config.restaurantManagementServiceUrl));
 app.use(`${prefix}`, proxyHandler(config.userManagementServiceUrl)); //default route
 
 
