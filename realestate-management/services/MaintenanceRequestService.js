@@ -1,4 +1,4 @@
-import MaintenanceRequestRepository from "../repositories/MaintenanceRequestRepository.js";
+import MaintenanceRequestRepository from "../repositories/maintenanceRequestRepository.js";
 
 const maintenanceRequestRepository = new MaintenanceRequestRepository();
 
