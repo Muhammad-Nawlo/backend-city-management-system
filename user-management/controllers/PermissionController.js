@@ -6,7 +6,7 @@ const permissionService = new PermissionService();
 
 class PermissionController {
     async all(req, res, next) {
-        const permissions = await permissionService.all();
+        const permissions = await permissionService.all(req);
 
         return ResponseHelper.success(res, permissions);
     }

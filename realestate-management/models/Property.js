@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import config from "../config/config.js";
-
+import paginate from 'mongoose-paginate-v2';
 
 const Schema = new mongoose.Schema({
     address: {
@@ -17,6 +17,12 @@ const Schema = new mongoose.Schema({
     },
     type: {
         type: mongoose.Types.ObjectId,
+        ref:"PropertyType",
+        required: true
+    },
+    specialType: {
+        type: mongoose.Types.ObjectId,
+        ref:"PropertySpecialType",
         required: true
     },
     description: {
@@ -47,11 +53,11 @@ const Schema = new mongoose.Schema({
     timestamps: true
 });
 Schema.virtual('fullImagesUrl').get(function () {
-    return  this.images.map(image => `${config.fileUrl}${image}`);
+    return this.images.map(image => `${config.fileUrl}${image}`);
 })
-Schema.set('toJSON', {virtuals: true});
-Schema.set('toObject', {virtuals: true});
-
+Schema.set('toJSON', { virtuals: true });
+Schema.set('toObject', { virtuals: true });
+Schema.plugin(paginate);
 
 const Property = mongoose.model('Property', Schema);
 export default Property;

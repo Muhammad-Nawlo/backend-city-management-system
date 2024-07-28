@@ -7,17 +7,18 @@ const orderService = new OrderService();
 
 class OrderController {
     async all(req, res, next) {
-        const orders = await orderService.all();
+        const orders = await orderService.all(req);
         return ResponseHelper.success(res, orders);
     }
 
     async create(req, res, next) {
         const {
             items,
-            user
+            user,
+            note
         } = req.body;
 
-        const orderDTO = new OrderDTO(items, user);
+        const orderDTO = new OrderDTO(items, user, note);
         const newOrder = await orderService.create(orderDTO);
         if (!newOrder) {
             return next(res);
@@ -26,18 +27,17 @@ class OrderController {
     }
 
     async update(req, res, next) {
-        const {id} = req.params;
+        const { id } = req.params;
         const {
-            items,
-            user,
+            status,
         } = req.body;
         const orderDTO = new OrderDTO(
-                items,
-                user,
-                '',
-                id
-            )
-        ;
+            [],
+            null,
+            null,
+            status,
+            id
+        );
         const order = await orderService.update(orderDTO);
         return ResponseHelper.success(res, order);
     }

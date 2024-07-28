@@ -7,7 +7,7 @@ const carTypeService = new CarTypeService();
 
 class CarTypeController {
     async all(req, res, next) {
-        const carTypes = await carTypeService.all();
+        const carTypes = await carTypeService.all(req);
         return ResponseHelper.success(res, carTypes);
     }
 

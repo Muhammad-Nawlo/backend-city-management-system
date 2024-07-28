@@ -7,7 +7,7 @@ const propertySpecialTypeService = new PropertySpecialTypeService();
 
 class PropertySpecialTypeController {
     async all(req, res, next) {
-        const propertySpecialTypes = await propertySpecialTypeService.all();
+        const propertySpecialTypes = await propertySpecialTypeService.all(req);
         return ResponseHelper.success(res, propertySpecialTypes);
     }
 

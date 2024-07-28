@@ -26,8 +26,8 @@ export class CategoryService {
     }
 
 
-    async all() {
-        const categories = await categoryRepository.all();
+    async all(req) {
+        const categories = await categoryRepository.all(req);
         return categories;
     }
 

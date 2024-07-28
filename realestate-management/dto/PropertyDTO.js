@@ -13,6 +13,7 @@ class PropertyDTO {
         bedrooms = null,
         bathrooms = null,
         images = null,
+        specialType = null,
         id = null
     ) {
         this.address = address;
@@ -28,6 +29,7 @@ class PropertyDTO {
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
         this.images = images;
+        this.specialType = specialType;
         this.id = id;
     }
 }

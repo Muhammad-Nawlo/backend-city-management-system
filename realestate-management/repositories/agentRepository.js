@@ -52,8 +52,12 @@ class AgentRepository {
         return agent;
     }
 
-    async all() {
-        const agents = await Agent.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10
+        };
+        const agents = await Agent.find().paginate(options);
         return agents;
     }
 }

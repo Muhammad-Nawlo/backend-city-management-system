@@ -15,11 +15,11 @@ class CarTypeRepository {
 
     async update(carTypeDTO) {
         const carType = await CarType.findByIdAndUpdate(carTypeDTO.id, {
-                name: carTypeDTO.name,
-                description: carTypeDTO.description,
-            }, {
-                new: true
-            }
+            name: carTypeDTO.name,
+            description: carTypeDTO.description,
+        }, {
+            new: true
+        }
         );
         if (!carType) {
             throw new NotFoundError();
@@ -43,8 +43,12 @@ class CarTypeRepository {
         return carType;
     }
 
-    async all() {
-        const carTypes = await CarType.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10
+        };
+        const carTypes = await CarType.find().paginate(options);
         return carTypes;
     }
 }

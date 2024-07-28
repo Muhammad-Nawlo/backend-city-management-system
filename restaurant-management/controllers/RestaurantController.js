@@ -8,7 +8,7 @@ const restaurantService = new RestaurantService();
 
 class RestaurantController {
     async all(req, res, next) {
-        const restaurants = await restaurantService.all();
+        const restaurants = await restaurantService.all(req);
         return ResponseHelper.success(res, restaurants);
     }
 

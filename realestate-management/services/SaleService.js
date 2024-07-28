@@ -24,8 +24,8 @@ export class SaleService {
     }
 
 
-    async all() {
-        const sales = await saleRepository.all();
+    async all(req) {
+        const sales = await saleRepository.all(req);
         return sales;
     }
 

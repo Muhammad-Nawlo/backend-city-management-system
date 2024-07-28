@@ -7,7 +7,7 @@ const categoryService = new CategoryService();
 
 class CategoryController {
     async all(req, res, next) {
-        const categories = await categoryService.all();
+        const categories = await categoryService.all(req);
         return ResponseHelper.success(res, categories);
     }
 

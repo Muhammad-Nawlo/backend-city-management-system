@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import config from "../config/config.js";
-
+import paginate from 'mongoose-paginate-v2';
 
 const Schema = new mongoose.Schema({
     make: {
@@ -25,7 +25,9 @@ const Schema = new mongoose.Schema({
         type: Number, required: true, allowNull: false, min: 1, max: 100000000
     },
     status: {
-        type: Number, required: true, allowNull: false, default: 0
+        type: String,
+        enum: ['Available', 'Unavailable', 'In Maintain'],
+        default: 'Available'
     },
     images: {
         type: [], required: true, allowNull: false
@@ -42,9 +44,9 @@ Schema.virtual('fullImagesUrl').get(function () {
         return `${config.fileUrl}${image}`;
     });
 })
-Schema.set('toJSON', {virtuals: true});
-Schema.set('toObject', {virtuals: true});
+Schema.set('toJSON', { virtuals: true });
+Schema.set('toObject', { virtuals: true });
 
-
+Schema.plugin(paginate);
 const Car = mongoose.model('Car', Schema);
 export default Car;

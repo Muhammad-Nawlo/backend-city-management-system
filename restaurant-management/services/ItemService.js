@@ -26,8 +26,8 @@ export class ItemService {
     }
 
 
-    async all() {
-        const Items = await itemRepository.all();
+    async all(req) {
+        const Items = await itemRepository.all(req);
         return Items;
     }
 

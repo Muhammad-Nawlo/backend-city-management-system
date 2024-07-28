@@ -1,6 +1,7 @@
 import Payment from "../models/Payment.js";
 
 import NotFoundError from "../errors/notFoundError.js";
+import { populate } from "dotenv";
 
 class PaymentRepository {
     async create(paymentDTO) {
@@ -16,13 +17,13 @@ class PaymentRepository {
 
     async update(paymentDTO) {
         const payment = await Payment.findByIdAndUpdate(paymentDTO.id, {
-                rentalId: paymentDTO.rentalId,
-                tenantId: paymentDTO.tenantId,
-                date: paymentDTO.date,
-                amount: paymentDTO.amount,
-            }, {
-                new: true
-            }
+            rentalId: paymentDTO.rentalId,
+            tenantId: paymentDTO.tenantId,
+            date: paymentDTO.date,
+            amount: paymentDTO.amount,
+        }, {
+            new: true
+        }
         );
         if (!payment) {
             throw new NotFoundError();
@@ -46,8 +47,13 @@ class PaymentRepository {
         return payment;
     }
 
-    async all() {
-        const payments = await Payment.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate:'rentalId'
+        };
+        const payments = await Payment.find().paginate(options);
         return payments;
     }
 }

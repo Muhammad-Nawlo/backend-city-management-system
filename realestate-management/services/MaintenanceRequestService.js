@@ -24,8 +24,8 @@ export class MaintenanceRequestService {
     }
 
 
-    async all() {
-        const maintenanceRequests = await maintenanceRequestRepository.all();
+    async all(req) {
+        const maintenanceRequests = await maintenanceRequestRepository.all(req);
         return maintenanceRequests;
     }
 

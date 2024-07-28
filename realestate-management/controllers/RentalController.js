@@ -6,7 +6,7 @@ const rentalService = new RentalService();
 
 class RentalController {
     async all(req, res, next) {
-        const rentals = await rentalService.all();
+        const rentals = await rentalService.all(req);
         return ResponseHelper.success(res, rentals);
     }
 

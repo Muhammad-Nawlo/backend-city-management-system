@@ -47,8 +47,12 @@ class RestaurantRepository {
         return restaurant;
     }
 
-    async all() {
-        const restaurants = await Restaurant.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+        };
+        const restaurants = await Restaurant.find().paginate(options);
         return restaurants;
     }
 

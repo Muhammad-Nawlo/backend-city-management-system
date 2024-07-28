@@ -7,7 +7,7 @@ const itemService = new ItemService();
 
 class ItemController {
     async all(req, res, next) {
-        const items = await itemService.all();
+        const items = await itemService.all(req);
         return ResponseHelper.success(res, items);
     }
 

@@ -24,8 +24,8 @@ export class PropertyTypeService {
     }
 
 
-    async all() {
-        const propertyTypes = await propertyTypeRepository.all();
+    async all(req) {
+        const propertyTypes = await propertyTypeRepository.all(req);
         return propertyTypes;
     }
 
