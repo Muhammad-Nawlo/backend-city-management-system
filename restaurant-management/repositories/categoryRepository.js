@@ -1,3 +1,4 @@
+import { populate } from "dotenv";
 import NotFoundError from "../errors/notFoundError.js";
 import Category from "../models/Category.js";
 
@@ -44,8 +45,13 @@ class CategoryRepository {
         return category;
     }
 
-    async all() {
-        const categories = await Category.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate:'restaurant'
+        };
+        const categories = await Category.find().paginate(options);
         return categories;
     }
 

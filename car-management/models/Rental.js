@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Car from "./Car.js";
 
-
+import paginate from 'mongoose-paginate-v2';
 const Schema = new mongoose.Schema({
     carId: {
         type: mongoose.Schema.ObjectId, ref: "Car", required: true, allowNull: false
@@ -32,6 +32,6 @@ Schema.pre('save', async function (next) {
     next();
 });
 
-
+Schema.plugin(paginate);
 const RentalCar = mongoose.model('RentalCar', Schema);
 export default RentalCar;

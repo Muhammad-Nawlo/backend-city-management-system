@@ -10,7 +10,8 @@ const roleService = new RoleService();
 
 class UserController {
     async all(req, res, next) {
-        const users = await userService.all();
+
+        const users = await userService.all(req);
         return ResponseHelper.success(res, users);
     }
 

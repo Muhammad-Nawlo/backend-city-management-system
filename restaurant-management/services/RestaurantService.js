@@ -26,8 +26,8 @@ export class RestaurantService {
     }
 
 
-    async all() {
-        const restaurants = await restaurantRepository.all();
+    async all(req) {
+        const restaurants = await restaurantRepository.all(req);
         return restaurants;
     }
 

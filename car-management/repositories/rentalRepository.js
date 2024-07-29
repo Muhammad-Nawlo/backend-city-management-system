@@ -1,6 +1,7 @@
 import Rental from "../models/Rental.js";
 
 import NotFoundError from "../errors/notFoundError.js";
+import { populate } from "dotenv";
 
 class RentalRepository {
     async create(rentalDTO) {
@@ -17,14 +18,14 @@ class RentalRepository {
 
     async update(rentalDTO) {
         const rental = await Rental.findByIdAndUpdate(rentalDTO.id, {
-                carId: rentalDTO.carId,
-                userId: rentalDTO.userId,
-                startDate: rentalDTO.startDate,
-                endDate: rentalDTO.endDate,
-                location: rentalDTO.location
-            }, {
-                new: true
-            }
+            carId: rentalDTO.carId,
+            userId: rentalDTO.userId,
+            startDate: rentalDTO.startDate,
+            endDate: rentalDTO.endDate,
+            location: rentalDTO.location
+        }, {
+            new: true
+        }
         );
         if (!rental) {
             throw new NotFoundError();
@@ -48,8 +49,13 @@ class RentalRepository {
         return rental;
     }
 
-    async all() {
-        const rentals = await Rental.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate: 'carId'
+        };
+        const rentals = await Rental.find().paginate(options);
         return rentals;
     }
 }

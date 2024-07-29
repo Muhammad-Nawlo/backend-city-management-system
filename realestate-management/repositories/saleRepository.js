@@ -1,6 +1,7 @@
 import Sale from "../models/Sale.js";
 
 import NotFoundError from "../errors/notFoundError.js";
+import { populate } from "dotenv";
 
 class SaleRepository {
     async create(saleDTO) {
@@ -17,14 +18,14 @@ class SaleRepository {
 
     async update(saleDTO) {
         const sale = await Sale.findByIdAndUpdate(saleDTO.id, {
-                propertyId: saleDTO.propertyId,
-                buyerId: saleDTO.buyerId,
-                agentId: saleDTO.agentId,
-                date: saleDTO.date,
-                price: saleDTO.price
-            }, {
-                new: true
-            }
+            propertyId: saleDTO.propertyId,
+            buyerId: saleDTO.buyerId,
+            agentId: saleDTO.agentId,
+            date: saleDTO.date,
+            price: saleDTO.price
+        }, {
+            new: true
+        }
         );
         if (!sale) {
             throw new NotFoundError();
@@ -48,8 +49,13 @@ class SaleRepository {
         return sale;
     }
 
-    async all() {
-        const sales = await Sale.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate:'agentId'
+        };
+        const sales = await Sale.find().paginate(options);
         return sales;
     }
 }

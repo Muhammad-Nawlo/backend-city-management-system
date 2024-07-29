@@ -28,8 +28,8 @@ export class RoleService {
     }
 
 
-    async all() {
-        const roles = await roleRepository.all();
+    async all(req) {
+        const roles = await roleRepository.all(req);
 
         return roles;
     }

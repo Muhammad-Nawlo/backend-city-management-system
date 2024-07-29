@@ -24,8 +24,8 @@ export class PaymentService {
     }
 
 
-    async all() {
-        const payments = await paymentRepository.all();
+    async all(req) {
+        const payments = await paymentRepository.all(req);
         return payments;
     }
 

@@ -9,6 +9,7 @@ const router = express.Router();
 const carTypeController = new CarTypeController();
 
 router.get('/', catchErrors(carTypeController.all));
+router.get('/search', catchErrors(carTypeController.all));
 router.post('/', carTypeValidation, validateRequest, catchErrors(carTypeController.create));
 router.put('/:id', carTypeValidation, validateRequest, catchErrors(carTypeController.update));
 router.delete('/:id', validateRequest, catchErrors(carTypeController.delete));

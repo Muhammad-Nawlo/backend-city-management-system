@@ -41,8 +41,12 @@ class PermissionRepository {
         return permission;
     }
 
-    async all() {
-        const permissions = await Permission.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+        };
+        const permissions = await Permission.find().paginate();
         return permissions;
     }
 }

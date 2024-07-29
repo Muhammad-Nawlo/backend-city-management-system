@@ -24,8 +24,8 @@ export class CarTypeService {
     }
 
 
-    async all() {
-        const carTypes = await carTypeRepository.all();
+    async all(req) {
+        const carTypes = await carTypeRepository.all(req);
         return carTypes;
     }
 

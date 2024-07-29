@@ -18,6 +18,7 @@ class PropertyRepository {
             bedrooms: propertyDTO.bedrooms,
             bathrooms: propertyDTO.bathrooms,
             images: propertyDTO.images,
+            specialType: propertyDTO.specialType,
         });
         const property = await newProperty.save();
         return property;
@@ -40,6 +41,7 @@ class PropertyRepository {
         property.buildingArea = propertyDTO.buildingArea;
         property.bedrooms = propertyDTO.bedrooms;
         property.bathrooms = propertyDTO.bathrooms;
+        property.specialType = propertyDTO.specialType;
 
         if (propertyDTO.images !== 'DONT_UPDATE') {
             property.images = propertyDTO.images;
@@ -66,8 +68,12 @@ class PropertyRepository {
         return property;
     }
 
-    async all() {
-        const properties = await Property.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10
+        };
+        const properties = await Property.find().paginate(options);
         return properties;
     }
 }

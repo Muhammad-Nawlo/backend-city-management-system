@@ -24,8 +24,8 @@ export class RentalService {
     }
 
 
-    async all() {
-        const rentals = await rentalRepository.all();
+    async all(req) {
+        const rentals = await rentalRepository.all(req);
         return rentals;
     }
 

@@ -10,6 +10,7 @@ const router = express.Router();
 const restaurantController = new RestaurantController();
 
 router.get('/', catchErrors(restaurantController.all));
+router.get('/search', catchErrors(restaurantController.all));
 router.post('/', restaurantValidation, validateRequest, catchErrors(restaurantController.create));
 router.put('/:id', restaurantValidation, validateRequest, catchErrors(restaurantController.update));
 router.delete('/:id', validateRequest, catchErrors(restaurantController.delete));

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import * as crypto from "crypto";
 import config from "../config/config.js";
+import paginate from 'mongoose-paginate-v2';
 
 const Schema = new mongoose.Schema({
     username: {
@@ -74,6 +75,18 @@ Schema.virtual('fullImageUrl').get(function () {
 })
 Schema.set('toJSON', {virtuals: true});
 Schema.set('toObject', {virtuals: true});
+
+Schema.plugin(paginate)
+
+Schema.methods.toJSON = function () {
+    const user = this;
+    const userObject = user.toObject();
+
+    delete userObject.hash;
+    delete userObject.salt;
+
+    return userObject;
+}
 
 
 const User = mongoose.model('User', Schema);

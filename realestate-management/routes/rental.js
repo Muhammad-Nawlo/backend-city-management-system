@@ -9,6 +9,7 @@ const router = express.Router();
 const rentalController = new RentalController();
 
 router.get('/', catchErrors(rentalController.all));
+router.get('/search', catchErrors(rentalController.all));
 router.post('/', rentalValidation, validateRequest, catchErrors(rentalController.create));
 router.put('/:id', rentalValidation, validateRequest, catchErrors(rentalController.update));
 router.delete('/:id', validateRequest, catchErrors(rentalController.delete));

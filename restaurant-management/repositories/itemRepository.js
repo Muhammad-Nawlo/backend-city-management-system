@@ -1,3 +1,4 @@
+import { populate } from "dotenv";
 import NotFoundError from "../errors/notFoundError.js";
 import Item from "../models/Item.js";
 import Order from "../models/Order.js";
@@ -47,8 +48,13 @@ class ItemRepository {
         return item;
     }
 
-    async all() {
-        const items = await Item.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate:'category'
+        };
+        const items = await Item.find().paginate(options);
         return items;
     }
 

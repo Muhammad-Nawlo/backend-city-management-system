@@ -28,8 +28,8 @@ export class UserService {
     }
 
 
-    async all() {
-        const users = await userRepository.all();
+    async all(req) {
+        const users = await userRepository.all(req);
         return users;
     }
 

@@ -10,6 +10,7 @@ const router = express.Router();
 const categoryController = new CategoryController();
 
 router.get('/', catchErrors(categoryController.all));
+router.get('/search', catchErrors(categoryController.all));
 router.post('/', categoryValidation, validateRequest, catchErrors(categoryController.create));
 router.put('/:id', categoryValidation, validateRequest, catchErrors(categoryController.update));
 router.delete('/:id', validateRequest, catchErrors(categoryController.delete));

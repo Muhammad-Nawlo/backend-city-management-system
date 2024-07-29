@@ -26,8 +26,8 @@ export class OrderService {
     }
 
 
-    async all() {
-        const orders = await orderRepository.all();
+    async all(req) {
+        const orders = await orderRepository.all(req);
         return orders;
     }
 

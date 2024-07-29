@@ -24,8 +24,8 @@ export class ServiceService {
     }
 
 
-    async all() {
-        const services = await serviceRepository.all();
+    async all(req) {
+        const services = await serviceRepository.all(req);
         return services;
     }
 }

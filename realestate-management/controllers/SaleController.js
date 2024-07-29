@@ -6,7 +6,7 @@ const saleService = new SaleService();
 
 class SaleController {
     async all(req, res, next) {
-        const sales = await saleService.all();
+        const sales = await saleService.all(req);
         return ResponseHelper.success(res, sales);
     }
 

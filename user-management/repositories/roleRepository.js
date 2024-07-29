@@ -1,5 +1,4 @@
 import Role from "../models/Role.js";
-import User from "../models/User.js";
 import Permission from "../models/Permission.js";
 import NotFoundError from "../errors/notFoundError.js";
 
@@ -43,8 +42,12 @@ class RoleRepository {
         return role;
     }
 
-    async all() {
-        const roles = await Role.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+        };
+        const roles = await Role.find().paginate(options);
         return roles;
     }
 

@@ -1,6 +1,6 @@
+import { populate } from "dotenv";
 import NotFoundError from "../errors/notFoundError.js";
 import Order from "../models/Order.js";
-import Restaurant from "../models/Restaurant.js";
 
 class OrderRepository {
     async create(orderDTO) {
@@ -8,6 +8,7 @@ class OrderRepository {
             items: orderDTO.items,
             user: orderDTO.user,
             status: orderDTO.status,
+            note: orderDTO.note,
         });
         const order = await newOrder.save();
         return order;
@@ -18,8 +19,7 @@ class OrderRepository {
         if (!order) {
             throw new NotFoundError();
         }
-        order.items = orderDTO.items;
-        order.user = orderDTO.user;
+        order.status = orderDTO.status;
 
         await order.save();
         return order;
@@ -41,8 +41,12 @@ class OrderRepository {
         return order;
     }
 
-    async all() {
-        const orders = await Order.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+        };
+        const orders = await Order.find().paginate(options);
         return orders;
     }
 

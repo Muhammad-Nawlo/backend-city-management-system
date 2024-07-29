@@ -19,15 +19,8 @@ class MaintenanceRequestRepository {
     async update(maintenanceRequestDTO) {
         const maintenanceRequest = await MaintenanceRequest.findById(maintenanceRequestDTO.id)
 
-        maintenanceRequest.propertyId = maintenanceRequestDTO.propertyId;
-        maintenanceRequest.tenantId = maintenanceRequestDTO.tenantId;
-        maintenanceRequest.date = maintenanceRequestDTO.date;
-        maintenanceRequest.description = maintenanceRequestDTO.description;
         maintenanceRequest.status = maintenanceRequestDTO.status;
 
-        if (maintenanceRequestDTO.images !== 'DONT_UPDATE') {
-            maintenanceRequest.images = maintenanceRequestDTO.images;
-        }
         await maintenanceRequest.save();
 
         return maintenanceRequest;
@@ -49,8 +42,12 @@ class MaintenanceRequestRepository {
         return maintenanceRequest;
     }
 
-    async all() {
-        const maintenanceRequests = await MaintenanceRequest.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10
+        };
+        const maintenanceRequests = await MaintenanceRequest.find().paginate(options);
         return maintenanceRequests;
     }
 }

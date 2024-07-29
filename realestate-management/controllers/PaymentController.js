@@ -8,7 +8,7 @@ const paymentService = new PaymentService();
 
 class PaymentController {
     async all(req, res, next) {
-        const payments = await paymentService.all();
+        const payments = await paymentService.all(req);
         return ResponseHelper.success(res, payments);
     }
 

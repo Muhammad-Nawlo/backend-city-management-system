@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import config from "../config/config.js";
-
+import paginate from 'mongoose-paginate-v2';
 
 const Schema = new mongoose.Schema({
     propertyId: {
@@ -19,7 +19,11 @@ const Schema = new mongoose.Schema({
         type: Array, allowNull: true
     },
     status: {
-        type: Number, allowNull: false, default: 1
+        type: String,
+        allowNull: false,
+        required: true,
+        enum: ['New', 'In Progress', 'In Review', 'Resolved', 'Cancelled', 'Archived'],
+        default: 'New'
     }
 }, {
     timestamps: true
@@ -28,9 +32,9 @@ const Schema = new mongoose.Schema({
 Schema.virtual('fullImagesUrl').get(function () {
     return this.images.map(image => `${config.fileUrl}${image}`);
 })
-Schema.set('toJSON', {virtuals: true});
-Schema.set('toObject', {virtuals: true});
-
+Schema.set('toJSON', { virtuals: true });
+Schema.set('toObject', { virtuals: true });
+Schema.plugin(paginate);
 
 const MaintenanceRequest = mongoose.model('MaintenanceRequest', Schema);
 export default MaintenanceRequest;
