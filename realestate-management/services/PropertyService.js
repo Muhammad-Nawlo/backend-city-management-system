@@ -24,8 +24,8 @@ export class PropertyService {
     }
 
 
-    async all() {
-        const properties = await propertyRepository.all();
+    async all(req) {
+        const properties = await propertyRepository.all(req);
         return properties;
     }
 

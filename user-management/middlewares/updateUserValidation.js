@@ -6,5 +6,4 @@ export const updateUserValidation = [
     body('email').notEmpty().trim().isEmail(),
     body('username').notEmpty().trim().isString(),
     body('phoneNumber').notEmpty().trim().isMobilePhone(),
-    body('password').notEmpty().trim().isStrongPassword(),
 ];

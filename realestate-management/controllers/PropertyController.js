@@ -9,7 +9,7 @@ const propertyService = new PropertyService();
 
 class PropertyController {
     async all(req, res, next) {
-        const properties = await propertyService.all();
+        const properties = await propertyService.all(req);
         return ResponseHelper.success(res, properties);
     }
 
@@ -28,7 +28,8 @@ class PropertyController {
             surfaceArea,
             buildingArea,
             bedrooms,
-            bathrooms
+            bathrooms,
+            specialType
         } = req.body;
 
         const propertyDTO = new PropertyDTO(
@@ -44,7 +45,8 @@ class PropertyController {
             buildingArea,
             bedrooms,
             bathrooms,
-            imagesPath
+            imagesPath,
+            specialType
         );
         const newProperty = await propertyService.create(propertyDTO);
         if (!newProperty) {
@@ -69,7 +71,8 @@ class PropertyController {
             surfaceArea,
             buildingArea,
             bedrooms,
-            bathrooms
+            bathrooms,
+            specialType
         } = req.body;
         const propertyDTO = new PropertyDTO(
             address,
@@ -85,6 +88,7 @@ class PropertyController {
             bedrooms,
             bathrooms,
             imagesPath,
+            specialType,
             id);
         const property = await propertyService.update(propertyDTO);
         return ResponseHelper.success(res, property);

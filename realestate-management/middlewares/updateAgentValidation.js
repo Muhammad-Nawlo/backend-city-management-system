@@ -1,9 +1,9 @@
 import {body} from 'express-validator';
 
 export const updateAgentValidation = [
-    body('email').isEmail(),
-    body('username').isString(),
+    body('email').notEmpty().trim().isEmail(),
+    body('username').notEmpty().trim().isString(),
     body('phoneNumber').isMobilePhone(),
-    body('fullName').isString(),
-    body('licenseNumber').isString(),
+    body('fullName').notEmpty().trim().isString(),
+    body('licenseNumber').notEmpty().trim().isString(),
 ];

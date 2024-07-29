@@ -45,8 +45,13 @@ class ServiceRepository {
         }
         return service;
     }
-    async all() {
-        const service = await Service.find().limit(10).exec();
+
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+        };
+        const service = await Service.find().paginate(options);
         return service;
     }
 }

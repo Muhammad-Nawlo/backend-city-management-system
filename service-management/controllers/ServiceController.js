@@ -7,7 +7,7 @@ const serviceService = new ServiceService();
 
 class ServiceController {
     async all(req, res, next) {
-        const services = await serviceService.all();
+        const services = await serviceService.all(req);
         return ResponseHelper.success(res, services);
     }
 

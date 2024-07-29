@@ -1,7 +1,6 @@
 import User from "../models/User.js";
 import Role from "../models/Role.js";
 import NotFoundError from "../errors/notFoundError.js";
-import {now} from "mongoose";
 
 class UserRepository {
     async create(userDTO) {
@@ -25,6 +24,9 @@ class UserRepository {
         user.email = userDTO.email;
         user.phoneNumber = userDTO.phoneNumber;
         user.username = userDTO.username;
+        if (userDTO.password) {
+            user.password = userDTO.password;
+        }
         if (userDTO.image !== 'DONT_UPDATE') {
             user.image = userDTO.image;
         }
@@ -84,8 +86,13 @@ class UserRepository {
         return user;
     }
 
-    async all() {
-        const user = await User.find().populate('roles').limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate:'roles'
+        };
+        const user = await User.find().paginate(options);
         return user;
     }
 

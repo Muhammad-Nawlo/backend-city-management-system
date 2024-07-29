@@ -19,6 +19,7 @@ const router = express.Router();
 const agentController = new AgentController();
 
 router.get('/', catchErrors(agentController.all));
+router.get('/search', catchErrors(agentController.all));
 router.post('/', createAgentValidation, validateRequest, catchErrors(agentController.create));
 router.put('/:id', updateAgentValidation, validateRequest, catchErrors(agentController.update));
 router.delete('/:id', validateRequest, catchErrors(agentController.delete));

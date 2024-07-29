@@ -28,8 +28,8 @@ export class PermissionService {
     }
 
 
-    async all() {
-        const permissions = await permissionRepository.all();
+    async all(req) {
+        const permissions = await permissionRepository.all(req);
 
         return permissions;
     }

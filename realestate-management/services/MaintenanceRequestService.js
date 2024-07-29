@@ -1,4 +1,4 @@
-import MaintenanceRequestRepository from "../repositories/MaintenanceRequestRepository.js";
+import MaintenanceRequestRepository from "../repositories/maintenanceRequestRepository.js";
 
 const maintenanceRequestRepository = new MaintenanceRequestRepository();
 
@@ -24,8 +24,8 @@ export class MaintenanceRequestService {
     }
 
 
-    async all() {
-        const maintenanceRequests = await maintenanceRequestRepository.all();
+    async all(req) {
+        const maintenanceRequests = await maintenanceRequestRepository.all(req);
         return maintenanceRequests;
     }
 

@@ -15,11 +15,11 @@ class PropertySpecialTypeRepository {
 
     async update(propertySpecialTypeDTO) {
         const propertySpecialType = await PropertySpecialType.findByIdAndUpdate(propertySpecialTypeDTO.id, {
-                name: propertySpecialTypeDTO.name,
-                description: propertySpecialTypeDTO.description,
-            }, {
-                new: true
-            }
+            name: propertySpecialTypeDTO.name,
+            description: propertySpecialTypeDTO.description,
+        }, {
+            new: true
+        }
         );
         if (!propertySpecialType) {
             throw new NotFoundError();
@@ -43,8 +43,12 @@ class PropertySpecialTypeRepository {
         return propertySpecialType;
     }
 
-    async all() {
-        const propertySpecialTypes = await PropertySpecialType.find().limit(10).exec();
+    async all(req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10
+        };
+        const propertySpecialTypes = await PropertySpecialType.find().paginate(options);
         return propertySpecialTypes;
     }
 }

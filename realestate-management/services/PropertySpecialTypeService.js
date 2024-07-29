@@ -25,8 +25,8 @@ export class PropertySpecialTypeService {
     }
 
 
-    async all() {
-        const propertySpecialTypes = await propertySpecialTypeRepository.all();
+    async all(req) {
+        const propertySpecialTypes = await propertySpecialTypeRepository.all(req);
         return propertySpecialTypes;
     }
 

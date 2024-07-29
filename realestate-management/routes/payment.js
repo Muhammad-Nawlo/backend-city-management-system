@@ -10,6 +10,7 @@ const router = express.Router();
 const paymentController = new PaymentController();
 
 router.get('/', catchErrors(paymentController.all));
+router.get('/search', catchErrors(paymentController.all));
 router.post('/', paymentValidation, validateRequest, catchErrors(paymentController.create));
 router.put('/:id', paymentValidation, validateRequest, catchErrors(paymentController.update));
 router.delete('/:id',  validateRequest, catchErrors(paymentController.delete));

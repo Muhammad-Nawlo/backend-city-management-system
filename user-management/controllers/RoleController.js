@@ -10,7 +10,7 @@ const permissionService = new PermissionService();
 
 class RoleController {
     async all(req, res, next) {
-        const roles = await roleService.all();
+        const roles = await roleService.all(req);
 
         return ResponseHelper.success(res, roles);
     }

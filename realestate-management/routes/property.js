@@ -11,6 +11,7 @@ const router = express.Router();
 const propertyController = new PropertyController();
 
 router.get('/', catchErrors(propertyController.all));
+router.get('/search', catchErrors(propertyController.all));
 router.post('/', propertyValidation, validateRequest, catchErrors(propertyController.create));
 router.put('/:id', propertyValidation, validateRequest, catchErrors(propertyController.update));
 router.delete('/:id', validateRequest, catchErrors(propertyController.delete));

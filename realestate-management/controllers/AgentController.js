@@ -7,7 +7,7 @@ const agentService = new AgentService();
 
 class AgentController {
     async all(req, res, next) {
-        const agents = await agentService.all();
+        const agents = await agentService.all(req);
         return ResponseHelper.success(res, agents);
     }
 

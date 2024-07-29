@@ -24,8 +24,8 @@ export class AgentService {
     }
 
 
-    async all() {
-        const agents = await agentRepository.all();
+    async all(req) {
+        const agents = await agentRepository.all(req);
         return agents;
     }
 

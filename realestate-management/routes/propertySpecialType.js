@@ -11,6 +11,7 @@ const router = express.Router();
 const propertySpecialTypeController = new PropertySpecialTypeController();
 
 router.get('/', catchErrors(propertySpecialTypeController.all));
+router.get('/search', catchErrors(propertySpecialTypeController.all));
 router.post('/', propertySpecialTypeValidation, validateRequest, catchErrors(propertySpecialTypeController.create));
 router.put('/:id', propertySpecialTypeValidation, validateRequest, catchErrors(propertySpecialTypeController.update));
 router.delete('/:id', validateRequest, catchErrors(propertySpecialTypeController.delete));

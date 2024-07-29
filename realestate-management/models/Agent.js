@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import config from "../config/config.js";
-
+import paginate from 'mongoose-paginate-v2';
 
 
 const Schema = new mongoose.Schema({
@@ -30,6 +30,8 @@ Schema.virtual('fullImageUrl').get(function () {
 })
 Schema.set('toJSON', {virtuals: true});
 Schema.set('toObject', {virtuals: true});
+
+Schema.plugin(paginate);
 
 
 const Agent = mongoose.model('Agent', Schema);
