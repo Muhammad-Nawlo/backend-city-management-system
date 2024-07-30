@@ -1,6 +1,7 @@
 import { populate } from "dotenv";
 import NotFoundError from "../errors/notFoundError.js";
 import Category from "../models/Category.js";
+import searchHandler from "../helpers/searchHandler.js";
 
 class CategoryRepository {
     async create(categoryDTO) {
@@ -49,9 +50,10 @@ class CategoryRepository {
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
-            populate:'restaurant'
+            populate: 'restaurant'
         };
-        const categories = await Category.find().paginate(options);
+        const searchOptions = searchHandler(req);
+        const categories = await Category.find(searchOptions).paginate(options);
         return categories;
     }
 

@@ -25,7 +25,7 @@ export class AuthService {
         if (!validPassword) {
             throw new AuthError();
         }
-        const token = jwt.sign({userId: user._id}, config.jwtSecret);
+        const token = jwt.sign({user}, config.jwtSecret);
         return {token, user};
     }
 

@@ -1,6 +1,7 @@
 import CarType from "../models/CarType.js";
 
 import NotFoundError from "../errors/notFoundError.js";
+import searchHandler from "../helpers/searchHandler.js";
 
 class CarTypeRepository {
     async create(carTypeDTO) {
@@ -48,7 +49,9 @@ class CarTypeRepository {
             page: req.query.page || 1,
             limit: req.query.items || 10
         };
-        const carTypes = await CarType.find().paginate(options);
+        const searchOptions = searchHandler(req);
+
+        const carTypes = await CarType.find(searchOptions).paginate(options);
         return carTypes;
     }
 }

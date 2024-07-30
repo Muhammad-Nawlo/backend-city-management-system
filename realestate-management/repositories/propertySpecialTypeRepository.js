@@ -1,6 +1,7 @@
 import PropertySpecialType from "../models/PropertySpecialType.js";
 
 import NotFoundError from "../errors/notFoundError.js";
+import searchHandler from "../helpers/searchHandler.js";
 
 class PropertySpecialTypeRepository {
     async create(propertySpecialTypeDTO) {
@@ -48,7 +49,8 @@ class PropertySpecialTypeRepository {
             page: req.query.page || 1,
             limit: req.query.items || 10
         };
-        const propertySpecialTypes = await PropertySpecialType.find().paginate(options);
+        const searchOptions = searchHandler(req);
+        const propertySpecialTypes = await PropertySpecialType.find(searchOptions).paginate(options);
         return propertySpecialTypes;
     }
 }

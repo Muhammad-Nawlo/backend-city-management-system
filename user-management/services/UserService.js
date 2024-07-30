@@ -33,10 +33,7 @@ export class UserService {
         return users;
     }
 
-    async assignRole(userDTO, roleDTO) {
-        const result = await userRepository.assignRole(userDTO, roleDTO);
-        return result;
-    }
+
 
     async getById(userDTO) {
 

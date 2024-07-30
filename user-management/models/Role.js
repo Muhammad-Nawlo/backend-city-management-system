@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import paginate  from "mongoose-paginate-v2";
 
 const Schema = new mongoose.Schema({
     name: {
@@ -19,7 +20,9 @@ const Schema = new mongoose.Schema({
             ref: 'Permission'
         }
     ]
-}, {timestamps: true});
+}, { timestamps: true });
+
+Schema.plugin(paginate)
 
 
 const Role = mongoose.model('Role', Schema);

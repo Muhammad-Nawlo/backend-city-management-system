@@ -2,6 +2,7 @@ import Sale from "../models/Sale.js";
 
 import NotFoundError from "../errors/notFoundError.js";
 import { populate } from "dotenv";
+import searchHandler from "../helpers/searchHandler.js";
 
 class SaleRepository {
     async create(saleDTO) {
@@ -53,9 +54,10 @@ class SaleRepository {
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
-            populate:'agentId'
+            populate: 'agentId'
         };
-        const sales = await Sale.find().paginate(options);
+        const searchOptions = searchHandler(req);
+        const sales = await Sale.find(searchOptions).paginate(options);
         return sales;
     }
 }

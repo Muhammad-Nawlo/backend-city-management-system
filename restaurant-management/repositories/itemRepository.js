@@ -2,6 +2,7 @@ import { populate } from "dotenv";
 import NotFoundError from "../errors/notFoundError.js";
 import Item from "../models/Item.js";
 import Order from "../models/Order.js";
+import searchHandler from "../helpers/searchHandler.js";
 
 class ItemRepository {
     async create(itemDTO) {
@@ -52,9 +53,10 @@ class ItemRepository {
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
-            populate:'category'
+            populate: 'category'
         };
-        const items = await Item.find().paginate(options);
+        const searchOptions = searchHandler(req)
+        const items = await Item.find(searchOptions).paginate(options);
         return items;
     }
 

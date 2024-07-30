@@ -2,6 +2,7 @@ import Payment from "../models/Payment.js";
 
 import NotFoundError from "../errors/notFoundError.js";
 import { populate } from "dotenv";
+import searchHandler from "../helpers/searchHandler.js";
 
 class PaymentRepository {
     async create(paymentDTO) {
@@ -53,7 +54,8 @@ class PaymentRepository {
             limit: req.query.items || 10,
             populate:'rentalId'
         };
-        const payments = await Payment.find().paginate(options);
+        const searchOptions = searchHandler(req);
+        const payments = await Payment.find(searchOptions).paginate(options);
         return payments;
     }
 }
