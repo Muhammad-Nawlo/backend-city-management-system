@@ -1,4 +1,5 @@
 import NotFoundError from "../errors/notFoundError.js";
+import searchHandler from "../helpers/searchHandler.js";
 import Service from "../models/Service.js";
 
 class ServiceRepository {
@@ -51,7 +52,8 @@ class ServiceRepository {
             page: req.query.page || 1,
             limit: req.query.items || 10,
         };
-        const service = await Service.find().paginate(options);
+        const searchOptions =searchHandler(req)
+        const service = await Service.find(searchOptions).paginate(options);
         return service;
     }
 }

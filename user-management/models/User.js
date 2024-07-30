@@ -33,10 +33,12 @@ const Schema = new mongoose.Schema({
     salt: {
         type: String, allowNull: false, required: true
     },
-    roles: [{
+    role: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Role',
-    }],
+        allowNull: false,
+        required: true
+    },
 }, {
     timestamps: true
 });
@@ -73,8 +75,8 @@ Schema.methods.generateVerifyToken = function () {
 Schema.virtual('fullImageUrl').get(function () {
     return `${config.fileUrl}${this.image}`;
 })
-Schema.set('toJSON', {virtuals: true});
-Schema.set('toObject', {virtuals: true});
+Schema.set('toJSON', { virtuals: true });
+Schema.set('toObject', { virtuals: true });
 
 Schema.plugin(paginate)
 

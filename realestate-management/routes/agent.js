@@ -1,9 +1,10 @@
 import express from "express";
 import validateRequest from "../middlewares/validateRequest.js";
-import {updateAgentValidation} from "../middlewares/updateAgentValidation.js";
+import { updateAgentValidation } from "../middlewares/updateAgentValidation.js";
 import catchErrors from "../handlers/catchErrors.js";
 import AgentController from "../controllers/AgentController.js";
-import {createAgentValidation} from "../middlewares/createAgentValidation.js";
+import { createAgentValidation } from "../middlewares/createAgentValidation.js";
+import authJWT from "../middlewares/authJWT.js";
 
 const router = express.Router();
 
@@ -18,10 +19,10 @@ const router = express.Router();
 
 const agentController = new AgentController();
 
-router.get('/', catchErrors(agentController.all));
-router.get('/search', catchErrors(agentController.all));
-router.post('/', createAgentValidation, validateRequest, catchErrors(agentController.create));
-router.put('/:id', updateAgentValidation, validateRequest, catchErrors(agentController.update));
-router.delete('/:id', validateRequest, catchErrors(agentController.delete));
-router.get('/:id', catchErrors(agentController.get));
+router.get('/', authJWT, catchErrors(agentController.all));
+router.get('/search', authJWT, catchErrors(agentController.all));
+router.post('/', authJWT, createAgentValidation, validateRequest, catchErrors(agentController.create));
+router.put('/:id', authJWT, updateAgentValidation, validateRequest, catchErrors(agentController.update));
+router.delete('/:id', authJWT, validateRequest, catchErrors(agentController.delete));
+router.get('/:id', authJWT, catchErrors(agentController.get));
 export default router;

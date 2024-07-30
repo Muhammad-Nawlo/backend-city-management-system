@@ -1,6 +1,7 @@
 import Property from "../models/Property.js";
 
 import NotFoundError from "../errors/notFoundError.js";
+import searchHandler from "../helpers/searchHandler.js";
 
 class PropertyRepository {
     async create(propertyDTO) {
@@ -73,7 +74,8 @@ class PropertyRepository {
             page: req.query.page || 1,
             limit: req.query.items || 10
         };
-        const properties = await Property.find().paginate(options);
+        const searchOptions = searchHandler(req);
+        const properties = await Property.find(searchOptions).paginate(options);
         return properties;
     }
 }
