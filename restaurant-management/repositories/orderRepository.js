@@ -1,4 +1,3 @@
-import { populate } from "dotenv";
 import NotFoundError from "../errors/notFoundError.js";
 import Order from "../models/Order.js";
 import searchHandler from "../helpers/searchHandler.js";
@@ -46,6 +45,7 @@ class OrderRepository {
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
+            populate: 'items.item'
         };
         const searchOptions = searchHandler(req);
         const orders = await Order.find(searchOptions).paginate(options);

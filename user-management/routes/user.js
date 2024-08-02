@@ -27,5 +27,6 @@ router.post('/', authJWT, createUserValidation, validateRequest, catchErrors(use
 router.put('/:id', authJWT, updateUserValidation, validateRequest, catchErrors(userController.update));
 router.delete('/:id', authJWT, validateRequest, catchErrors(userController.delete));
 router.get('/:id', authJWT, catchErrors(userController.get));
+router.post('/:id', authJWT, catchErrors(userController.get));
 
 export default router;

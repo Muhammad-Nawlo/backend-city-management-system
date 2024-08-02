@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Item from "./Item.js";
 import paginate from 'mongoose-paginate-v2';
+
 const Schema = new mongoose.Schema({
     items: [{
         item: {
@@ -12,6 +13,10 @@ const Schema = new mongoose.Schema({
             type: Number,
             required: true,
             min: 1
+        },
+        note: {
+            type: String,
+            allowNull: true
         }
     }],
     user: {
