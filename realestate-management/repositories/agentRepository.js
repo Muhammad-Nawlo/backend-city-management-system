@@ -1,6 +1,7 @@
 import Agent from "../models/Agent.js";
 
 import NotFoundError from "../errors/notFoundError.js";
+import searchHandler from "../helpers/searchHandler.js";
 
 class AgentRepository {
     async create(agentDTO) {
@@ -57,7 +58,8 @@ class AgentRepository {
             page: req.query.page || 1,
             limit: req.query.items || 10
         };
-        const agents = await Agent.find().paginate(options);
+        const searchOptions = searchHandler(req);
+        const agents = await Agent.find(searchOptions).paginate(options);
         return agents;
     }
 }

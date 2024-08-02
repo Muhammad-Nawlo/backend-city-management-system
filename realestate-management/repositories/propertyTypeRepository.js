@@ -1,6 +1,7 @@
 import PropertyType from "../models/PropertyType.js";
 
 import NotFoundError from "../errors/notFoundError.js";
+import searchHandler from "../helpers/searchHandler.js";
 
 class PropertyTypeRepository {
     async create(propertyTypeDTO) {
@@ -48,7 +49,8 @@ class PropertyTypeRepository {
             page: req.query.page || 1,
             limit: req.query.items || 10
         };
-        const propertyTypes = await PropertyType.find().paginate(options);
+        const searchOptions = searchHandler(req);
+        const propertyTypes = await PropertyType.find(searchOptions).paginate(options);
         return propertyTypes;
     }
 }

@@ -11,6 +11,7 @@ const router = express.Router();
 const roleController = new RoleController();
 
 router.get('/', catchErrors(roleController.all));
+router.get('/search', catchErrors(roleController.all));
 router.post('/', createRoleValidation, validateRequest, catchErrors(roleController.create));
 router.delete('/:id',validateRequest, catchErrors(roleController.delete));
 router.put('/:id', updateRoleValidation, validateRequest, catchErrors(roleController.update));

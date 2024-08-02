@@ -2,6 +2,7 @@ import Rental from "../models/Rental.js";
 
 import NotFoundError from "../errors/notFoundError.js";
 import { populate } from "dotenv";
+import searchHandler from "../helpers/searchHandler.js";
 
 class RentalRepository {
     async create(rentalDTO) {
@@ -57,7 +58,8 @@ class RentalRepository {
             limit: req.query.items || 10,
             populate: ['agentId', 'propertyId']
         };
-        const rentals = await Rental.find().paginate(options);
+        const searchOptions = searchHandler(req);
+        const rentals = await Rental.find(searchOptions).paginate(options);
         return rentals;
     }
 }

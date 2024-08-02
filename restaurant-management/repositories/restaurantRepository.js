@@ -1,4 +1,5 @@
 import NotFoundError from "../errors/notFoundError.js";
+import searchHandler from "../helpers/searchHandler.js";
 import Restaurant from "../models/Restaurant.js";
 
 class RestaurantRepository {
@@ -52,7 +53,8 @@ class RestaurantRepository {
             page: req.query.page || 1,
             limit: req.query.items || 10,
         };
-        const restaurants = await Restaurant.find().paginate(options);
+        const searchOptions = searchHandler(req);
+        const restaurants = await Restaurant.find(searchOptions).paginate(options);
         return restaurants;
     }
 
