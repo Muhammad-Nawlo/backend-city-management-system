@@ -62,6 +62,7 @@ app.use(
   proxyHandler(config.restaurantManagementServiceUrl)
 );
 app.use(`${prefix}/cars`, proxyHandler(config.carManagementServiceUrl));
+app.use(`${prefix}/ads`, proxyHandler(config.adManagementServiceUrl));
 app.use(`${prefix}`, proxyHandler(config.userManagementServiceUrl)); //default route
 
 export default app;

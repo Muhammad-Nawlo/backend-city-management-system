@@ -11,5 +11,6 @@ const config = {
     realestateManagementServiceUrl: process.env.REALESTATE_MANAGEMENT_SERVICE_URI,
     restaurantManagementServiceUrl: process.env.RESTAURANT_MANAGEMENT_SERVICE_URI,
     carManagementServiceUrl: process.env.CAR_MANAGEMENT_SERVICE_URI,
+    adManagementServiceUrl: process.env.AD_MANAGEMENT_SERVICE_URI,
 };
 export default config;
