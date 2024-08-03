@@ -11,7 +11,7 @@ export const carValidation = [
     body('registrationNumber').isString(),
     body('price').isNumeric(),
     body('status').custom(value => [
-        'Available', 'Unavailable', 'In Maintain'
+        'Available', 'Unavailable', 'In Maintain','Rented'
     ].includes(value)),
     body('color').isHexColor(),
 ];

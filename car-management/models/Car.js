@@ -26,7 +26,7 @@ const Schema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Available', 'Unavailable', 'In Maintain'],
+        enum: ['Available', 'Unavailable', 'In Maintain','Rented'],
         default: 'Available'
     },
     images: {

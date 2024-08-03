@@ -46,7 +46,8 @@ class MaintenanceRequestRepository {
     async all(req) {
         const options = {
             page: req.query.page || 1,
-            limit: req.query.items || 10
+            limit: req.query.items || 10,
+            populate: 'propertyId'
         };
         const searchOptions = searchHandler(req);
         const maintenanceRequests = await MaintenanceRequest.find(searchOptions).paginate(options);

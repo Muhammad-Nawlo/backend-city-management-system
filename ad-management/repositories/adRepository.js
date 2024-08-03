@@ -5,9 +5,10 @@ import Ad from "../models/Ad.js";
 class AdRepository {
     async create(adDTO) {
         const newService = new Ad({
-            images: adDTO.images,
+            image: adDTO.image,
             status: adDTO.status,
             withAuth: adDTO.withAuth,
+            link: adDTO.link,
         });
         const ad = await newService.save();
         return ad;
@@ -20,8 +21,9 @@ class AdRepository {
         }
         ad.status = adDTO.status;
         ad.withAuth = adDTO.withAuth;
+        ad.link = adDTO.link;
         if (adDTO.image !== 'DONT_UPDATE') {
-            ad.images = adDTO.images;
+            ad.image = adDTO.image;
         }
         await ad.save();
         return ad;

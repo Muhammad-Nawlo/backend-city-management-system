@@ -24,8 +24,14 @@ const Schema = new mongoose.Schema({
     resetPasswordExpires: Date,
     verifyToken: String,
     verifyTokenExpires: Date,
+    fcmToken: {
+        type: String,
+        allowNull: true
+    },
     status: {
-        type: Number, required: true, default: 1
+        type: String,
+        enum: ['Available', 'Blocked', 'Unverified'],
+        default: 'Available'
     },
     hash: {
         type: String, allowNull: false, required: true
@@ -75,8 +81,8 @@ Schema.methods.generateVerifyToken = function () {
 Schema.virtual('fullImageUrl').get(function () {
     return `${config.fileUrl}${this.image}`;
 })
-Schema.set('toJSON', { virtuals: true });
-Schema.set('toObject', { virtuals: true });
+Schema.set('toJSON', {virtuals: true});
+Schema.set('toObject', {virtuals: true});
 
 Schema.plugin(paginate)
 

@@ -3,22 +3,30 @@ import config from "../config/config.js";
 import paginate from "mongoose-paginate-v2";
 
 const Schema = new mongoose.Schema({
-    images: {
-        type: Array, required: true
+    image: {
+        type: String, required: true
+    },
+    link: {
+        type: String
     },
     status: {
-        type: Number, required: true, default: 1
+        type: String,
+        enum: ['Available', 'Unavailable'],
+        default: 'Available'
     },
     withAuth: {
-        type: Number, required: true, default: 1
+        type: String,
+        enum: ['True', 'False'],
+        default: 'True'
     }
 }, {timestamps: true});
 
-Schema.virtual('fullImagesUrl').get(function () {
-    return this.images.map(image => `${config.fileUrl}${image}`);
+Schema.virtual('fullImageUrl').get(function () {
+    return `${config.fileUrl}${this.image}`;
 })
 Schema.set('toJSON', {virtuals: true});
 Schema.set('toObject', {virtuals: true});
+
 Schema.plugin(paginate);
 
 
