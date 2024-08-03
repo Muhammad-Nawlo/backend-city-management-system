@@ -43,12 +43,14 @@ class RentalRepository {
     }
 
     async getById(rentalDTO) {
-        const rental = await Rental.findById(rentalDTO.id).populate({
-            path: "carId",
-            populate: {
-                path:"type"
+        const rental = await Rental.findById(rentalDTO.id).populate([
+            {
+                path: "carId",
+                populate: {
+                    path:"type"
+                }
             }
-        });
+        ]);
         if (!rental) {
             throw new NotFoundError();
         }
