@@ -4,3 +4,4 @@ node_modules
 user-management/.idea
 mail-management/.idea
 user-management/notification
+user-management/notification/*
