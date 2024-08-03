@@ -24,7 +24,9 @@ const Schema = new mongoose.Schema({
         allowNull: true,
     },
     status: {
-        type: Number, required: true, default: 1
+        type: String,
+        enum: ['Available', 'Unavailable'],
+        default: 'Available'
     },
 }, {timestamps: true});
 

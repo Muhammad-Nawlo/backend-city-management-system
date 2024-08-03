@@ -6,5 +6,5 @@ export const createServiceValidation = [
     body('name').notEmpty().isString(),
     body('slug').notEmpty().trim().isSlug().custom(value => uniquenessHandler(Service, {slug: value})),
     body('description').notEmpty().isString(),
-    body('status').notEmpty().isInt({min: 0, max: 1}),
+    body('status').custom(value => ['Available', 'Unavailable'].includes(value)),
 ];
