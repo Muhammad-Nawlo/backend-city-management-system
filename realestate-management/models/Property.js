@@ -29,7 +29,9 @@ const Schema = new mongoose.Schema({
         type: String, allowNull: false, required: true
     },
     status: {
-        type: Number, required: true, default: 1
+        type: String,
+        enum: ['Available', 'Rented', 'Sold'],
+        default: 'Available'
     },
     price: {
         type: Number, required: true,

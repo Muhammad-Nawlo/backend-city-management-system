@@ -17,7 +17,7 @@ const Schema = new mongoose.Schema({
     restaurant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Restaurant',
-        required: true,
+        allowNull:true
     },
 }, {
     timestamps: true

@@ -7,5 +7,4 @@ import Restaurant from "../models/Restaurant.js";
 export const categoryValidation = [
     body('name').notEmpty().trim().isString(),
     body('description').notEmpty().trim().isString(),
-    body('restaurant').notEmpty().trim().custom(value => existHandler(Restaurant, value)),
 ];

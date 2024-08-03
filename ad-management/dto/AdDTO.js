@@ -1,7 +1,8 @@
 class AdDTO {
-    constructor(images = [null], status = null, withAuth = null, id = null) {
+    constructor(image = null, status = null, withAuth = null, link = null, id = null) {
         this.id = id;
-        this.images = images;
+        this.image = image;
+        this.link = link;
         this.status = status;
         this.withAuth = withAuth;
     }

@@ -44,18 +44,16 @@ const Schema = new mongoose.Schema({
 });
 
 Schema.pre('save', async function (next) {
-    if (!this._id) {
 
-        let totalPrice = 0;
-        for (let i = 0; i < this.items.length; i++) {
-            const item = await Item.findById(this.items[i].item)
-            totalPrice += item.price * this.items[i].quantity;
-        }
-        this.totalPrice = totalPrice;
-        this.totalAmount = this.items.reduce(function (total, num) {
-            return total + num.quantity
-        }, 0);
+    let totalPrice = 0;
+    for (let i = 0; i < this.items.length; i++) {
+        const item = await Item.findById(this.items[i].item)
+        totalPrice += item.price * this.items[i].quantity;
     }
+    this.totalPrice = totalPrice;
+    this.totalAmount = this.items.reduce(function (total, num) {
+        return total + num.quantity
+    }, 0);
 
     next();
 });

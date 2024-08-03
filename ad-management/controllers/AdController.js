@@ -1,7 +1,7 @@
 import AdDTO from "../dto/AdDTO.js";
 import AdService from "../services/AdService.js";
 import ResponseHelper from "../helpers/responseHelper.js";
-import UploadFiles from "../helpers/uploadFiles.js";
+import UploadFile from "../helpers/uploadFile.js";
 
 const adService = new AdService();
 
@@ -12,9 +12,9 @@ class AdController {
     }
 
     async create(req, res, next) {
-        const imagesPath = await UploadFiles(req);
-        const {status, withAuth} = req.body;
-        const adDTO = new AdDTO(imagesPath, status, withAuth);
+        const imagePath = await UploadFile(req);
+        const {status, withAuth, link} = req.body;
+        const adDTO = new AdDTO(imagePath, status, withAuth, link);
         const newService = await adService.create(adDTO);
         if (!newService) {
             return next(res);
@@ -24,9 +24,9 @@ class AdController {
 
     async update(req, res, next) {
         const {id} = req.params;
-        const imagesPath = await UploadFiles(req, true)
-        const {status, withAuth} = req.body;
-        const adDTO = new AdDTO(imagesPath, status, withAuth, id);
+        const imagePath = await UploadFile(req, true)
+        const {status, withAuth, link} = req.body;
+        const adDTO = new AdDTO(imagePath, status, withAuth, link, id);
         const ad = await adService.update(adDTO);
         return ResponseHelper.success(res, ad);
     }
