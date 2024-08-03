@@ -52,7 +52,7 @@ class CarRepository {
     }
 
     async getById(carDTO) {
-        const car = await Car.findById(carDTO.id);
+        const car = await Car.findById(carDTO.id).populate("type");
         if (!car) {
             throw new NotFoundError();
         }

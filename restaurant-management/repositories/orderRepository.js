@@ -34,7 +34,7 @@ class OrderRepository {
     }
 
     async getById(orderDTO) {
-        const order = await Order.findById(orderDTO.id);
+        const order = await Order.findById(orderDTO.id).populate('items.item');
         if (!order) {
             throw new NotFoundError();
         }
