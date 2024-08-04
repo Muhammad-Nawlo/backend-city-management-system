@@ -42,7 +42,7 @@ class ItemRepository {
     }
 
     async getById(itemDTO) {
-        const item = await Item.findById(itemDTO.id);
+        const item = await Item.findById(itemDTO.id).populate("category");
         if (!item) {
             throw new NotFoundError();
         }

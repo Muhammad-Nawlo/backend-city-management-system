@@ -58,6 +58,7 @@ class RentalRepository {
     }
 
     async all(req) {
+        // const {userId} = req.query;
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
@@ -70,7 +71,9 @@ class RentalRepository {
             
         };
         const searchOptions = searchHandler(req);
-
+        // if(userId){
+        //     searchOptions.user = userId;
+        // }
         const rentals = await Rental.find(searchOptions).paginate(options);
         return rentals;
     }
