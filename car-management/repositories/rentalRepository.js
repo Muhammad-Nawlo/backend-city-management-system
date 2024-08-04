@@ -43,7 +43,14 @@ class RentalRepository {
     }
 
     async getById(rentalDTO) {
-        const rental = await Rental.findById(rentalDTO.id);
+        const rental = await Rental.findById(rentalDTO.id).populate([
+            {
+                path: "carId",
+                populate: {
+                    path:"type"
+                }
+            }
+        ]);
         if (!rental) {
             throw new NotFoundError();
         }
@@ -51,13 +58,22 @@ class RentalRepository {
     }
 
     async all(req) {
+        // const {userId} = req.query;
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
-            populate: 'carId'
+            populate: {
+                    path: 'carId',
+                    populate: {
+                        path: 'type',
+                    }
+                },
+            
         };
         const searchOptions = searchHandler(req);
-
+        // if(userId){
+        //     searchOptions.user = userId;
+        // }
         const rentals = await Rental.find(searchOptions).paginate(options);
         return rentals;
     }

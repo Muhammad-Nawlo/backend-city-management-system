@@ -42,7 +42,7 @@ class ItemRepository {
     }
 
     async getById(itemDTO) {
-        const item = await Item.findById(itemDTO.id);
+        const item = await Item.findById(itemDTO.id).populate("category");
         if (!item) {
             throw new NotFoundError();
         }
@@ -50,12 +50,16 @@ class ItemRepository {
     }
 
     async all(req) {
+        const { categoryId} = req.query;
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
             populate: 'category'
         };
         const searchOptions = searchHandler(req)
+        if (categoryId) {
+            searchOptions.category = categoryId;
+        }
         const items = await Item.find(searchOptions).paginate(options);
         return items;
     }

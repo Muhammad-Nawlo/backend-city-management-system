@@ -34,7 +34,7 @@ class OrderRepository {
     }
 
     async getById(orderDTO) {
-        const order = await Order.findById(orderDTO.id);
+        const order = await Order.findById(orderDTO.id).populate('items.item');
         if (!order) {
             throw new NotFoundError();
         }
@@ -42,12 +42,16 @@ class OrderRepository {
     }
 
     async all(req) {
+        const {userId} = req.query;
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
             populate: 'items.item'
         };
         const searchOptions = searchHandler(req);
+        if(userId){
+            searchOptions.user = userId;
+        }
         const orders = await Order.find(searchOptions).paginate(options);
         return orders;
     }
