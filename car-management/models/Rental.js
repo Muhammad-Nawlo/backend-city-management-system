@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import Car from "./Car.js";
 
 import paginate from 'mongoose-paginate-v2';
+import eventHandler from "../helpers/eventHandler.js";
+
 const Schema = new mongoose.Schema({
     carId: {
         type: mongoose.Schema.ObjectId, ref: "Car", required: true, allowNull: false
@@ -20,7 +22,12 @@ const Schema = new mongoose.Schema({
     },
     location: {
         type: String, required: true, allowNull: false
-    }
+    },
+    status: {
+        type: String,
+        enum: ['Pending', 'Rent', 'Canceled', 'New', 'Done'],
+        default: 'Pending'
+    },
 }, {
     timestamps: true
 });
@@ -33,5 +40,6 @@ Schema.pre('save', async function (next) {
 });
 
 Schema.plugin(paginate);
+
 const RentalCar = mongoose.model('RentalCar', Schema);
 export default RentalCar;

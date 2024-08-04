@@ -10,5 +10,7 @@ const config = {
     env: process.env.ENV || 'development',
     tokenExpiredTime: process.env.TOKEN_EXPIRED_TIME_HOUR,
     fileUrl: process.env.FILE_URL,
+    userServiceEvent: process.env.USER_SERVICE_URL_EVENT,
+
 };
 export default config;

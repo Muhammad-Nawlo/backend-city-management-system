@@ -20,7 +20,7 @@ const router = express.Router();
  */
 const adController = new AdController();
 
-router.get('/', authJWT, catchErrors(adController.all));
+router.get('/', catchErrors(adController.all));
 router.get('/search', authJWT, catchErrors(adController.all));
 router.post('/', authJWT, createAdValidation, validateRequest, catchErrors(adController.create));
 router.put('/:id', authJWT, updateAdValidation, validateRequest, catchErrors(adController.update));

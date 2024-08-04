@@ -30,7 +30,7 @@ const Schema = new mongoose.Schema({
 });
 
 Schema.virtual('fullImagesUrl').get(function () {
-    return this.images.map(image => `${config.fileUrl}${image}`);
+    return this.images?.map(image => `${config.fileUrl}${image}`);
 })
 Schema.set('toJSON', { virtuals: true });
 Schema.set('toObject', { virtuals: true });

@@ -17,12 +17,12 @@ const Schema = new mongoose.Schema({
     },
     type: {
         type: mongoose.Types.ObjectId,
-        ref:"PropertyType",
+        ref: "PropertyType",
         required: true
     },
     specialType: {
         type: mongoose.Types.ObjectId,
-        ref:"PropertySpecialType",
+        ref: "PropertySpecialType",
         required: true
     },
     description: {
@@ -30,8 +30,8 @@ const Schema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Available', 'Rented', 'Sold'],
-        default: 'Available'
+        enum: ['Rented', 'Sold', 'Sale', 'Rent'],
+        default: 'Sale'
     },
     price: {
         type: Number, required: true,
@@ -57,8 +57,8 @@ const Schema = new mongoose.Schema({
 Schema.virtual('fullImagesUrl').get(function () {
     return this.images.map(image => `${config.fileUrl}${image}`);
 })
-Schema.set('toJSON', { virtuals: true });
-Schema.set('toObject', { virtuals: true });
+Schema.set('toJSON', {virtuals: true});
+Schema.set('toObject', {virtuals: true});
 Schema.plugin(paginate);
 
 const Property = mongoose.model('Property', Schema);

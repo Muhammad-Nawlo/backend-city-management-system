@@ -46,6 +46,7 @@ const proxyHandler = function (host) {
       reqAsBuffer,
       reqBodyEncoding,
       parseReqBody,
+      timeout: 10000
     })(req, res, next);
   };
 };
