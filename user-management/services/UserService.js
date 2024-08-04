@@ -1,10 +1,10 @@
 import UserRepository from "../repositories/userRepository.js";
-import User from "../models/User.js";
-import NotFoundError from "../errors/notFoundError.js";
+import UserDTO from "../dto/UserDTO.js";
 
 const userRepository = new UserRepository();
 
 export class UserService {
+
     async create(usersDTO) {
         const newUser = await userRepository.create(usersDTO);
         return newUser;
@@ -34,11 +34,9 @@ export class UserService {
     }
 
 
-
     async getById(userDTO) {
 
         const user = await userRepository.getById(userDTO);
-
         return user;
     }
 
@@ -59,10 +57,28 @@ export class UserService {
 
         return user;
     }
+
     async getByToken(token) {
         const user = await userRepository.getByToken(token);
 
         return user;
+    }
+
+    async subscribe(payload) {
+        payload = JSON.parse(payload)
+        const {event, data} = payload;
+        const userDTO = new UserDTO();
+        userDTO.id = data.id;
+        let result = null;
+        switch (event) {
+            case 'GET_USER':
+                result = await this.getById(userDTO);
+                break;
+            default:
+                result = null;
+                break;
+        }
+        return result;
     }
 }
 

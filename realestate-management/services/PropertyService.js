@@ -34,6 +34,11 @@ export class PropertyService {
         const property = await propertyRepository.getById(propertyDTO);
         return property;
     }
+
+    async userProperty(userId, req) {
+        const userProperties = await propertyRepository.userProperty(userId, req);
+        return userProperties;
+    }
 }
 
 export default PropertyService;

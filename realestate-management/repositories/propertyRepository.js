@@ -2,6 +2,8 @@ import Property from "../models/Property.js";
 
 import NotFoundError from "../errors/notFoundError.js";
 import searchHandler from "../helpers/searchHandler.js";
+import Sale from "../models/Sale.js";
+import Rental from "../models/Rental.js";
 
 class PropertyRepository {
     async create(propertyDTO) {
@@ -72,11 +74,35 @@ class PropertyRepository {
     async all(req) {
         const options = {
             page: req.query.page || 1,
-            limit: req.query.items || 10
+            limit: req.query.items || 10,
+            populate: ['type', 'specialType']
         };
         const searchOptions = searchHandler(req);
         const properties = await Property.find(searchOptions).paginate(options);
         return properties;
+    }
+
+    async userProperty(userId, req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate: ['propertyId', 'agentId']
+        };
+
+        const searchOptionsRental = searchHandler(req);
+        const searchOptionsSale = searchHandler(req);
+
+        const rentalProperties = await Rental.find(searchOptionsRental).paginate(options);
+        const saleProperties = await Sale.find(searchOptionsSale).paginate(options);
+
+        if (!rentalProperties && !saleProperties) {
+            throw new NotFoundError();
+        }
+
+        return {
+            rentalProperties,
+            saleProperties
+        };
     }
 }
 

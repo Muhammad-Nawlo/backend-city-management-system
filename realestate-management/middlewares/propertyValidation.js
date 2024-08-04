@@ -11,7 +11,7 @@ export const propertyValidation = [
     body('type').exists().custom(value => existHandler(PropertyType, value)),
     body('specialType').exists().custom(value => existHandler(PropertySpecialType, value)),
     body('description').isString(),
-    body('status').custom(value => ['Available', 'Rented', 'Sold'].includes(value)),
+    body('status').custom(value => ['Rented', 'Sold', 'Sale', 'Rent'].includes(value)),
     body('price').isFloat({min: 0, max: 1000}),
     body('surfaceArea').isFloat({min: 0, max: 1000}),
     body('buildingArea').isFloat({min: 0, max: 1000}),

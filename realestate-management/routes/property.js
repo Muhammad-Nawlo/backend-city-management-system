@@ -11,7 +11,8 @@ const router = express.Router();
 
 const propertyController = new PropertyController();
 
-router.get('/', authJWT, catchErrors(propertyController.all));
+router.get('/', catchErrors(propertyController.all));
+router.get('/user',authJWT, catchErrors(propertyController.propertyUser));
 router.get('/search', authJWT, catchErrors(propertyController.all));
 router.post('/', authJWT, propertyValidation, validateRequest, catchErrors(propertyController.create));
 router.put('/:id', authJWT, propertyValidation, validateRequest, catchErrors(propertyController.update));

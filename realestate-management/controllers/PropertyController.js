@@ -1,7 +1,6 @@
 import PropertyDTO from "../dto/PropertyDTO.js";
 import ResponseHelper from "../helpers/responseHelper.js";
 import PropertyService from "../services/PropertyService.js";
-import UploadFile from "../helpers/uploadFile.js";
 import UploadFiles from "../helpers/uploadFiles.js";
 
 const propertyService = new PropertyService();
@@ -56,7 +55,7 @@ class PropertyController {
     }
 
     async update(req, res, next) {
-        const imagesPath = await UploadFiles(req,true);
+        const imagesPath = await UploadFiles(req, true);
 
         const {id} = req.params;
         const {
@@ -106,6 +105,13 @@ class PropertyController {
         const propertyDTO = new PropertyDTO();
         propertyDTO.id = req.params.id
         const property = await propertyService.get(propertyDTO);
+
+        return ResponseHelper.success(res, property);
+    }
+
+    async propertyUser(req, res, next) {
+        const userId = req.user.id;
+        const property = await propertyService.userProperty(userId,req);
 
         return ResponseHelper.success(res, property);
     }
