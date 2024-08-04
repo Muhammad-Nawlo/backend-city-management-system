@@ -2,6 +2,7 @@ import MaintenanceRequest from "../models/MaintenanceRequest.js";
 
 import NotFoundError from "../errors/notFoundError.js";
 import searchHandler from "../helpers/searchHandler.js";
+import mongoose from "mongoose";
 
 class MaintenanceRequestRepository {
     async create(maintenanceRequestDTO) {
@@ -51,6 +52,18 @@ class MaintenanceRequestRepository {
         };
         const searchOptions = searchHandler(req);
         const maintenanceRequests = await MaintenanceRequest.find(searchOptions).paginate(options);
+        return maintenanceRequests;
+    }
+
+    async maintenanceRequestUser(userId, req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate: 'propertyId'
+        };
+        const maintenanceRequests = await MaintenanceRequest.find({
+            tenantId: new mongoose.Types.ObjectId(userId)
+        }).paginate(options);
         return maintenanceRequests;
     }
 }

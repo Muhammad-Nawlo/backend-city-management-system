@@ -34,6 +34,11 @@ export class MaintenanceRequestService {
         const maintenanceRequest = await maintenanceRequestRepository.getById(maintenanceRequestDTO);
         return maintenanceRequest;
     }
+
+    async maintenanceRequestUser(userId,req) {
+        const maintenanceRequest = await maintenanceRequestRepository.maintenanceRequestUser(userId,req);
+        return maintenanceRequest;
+    }
 }
 
 export default MaintenanceRequestService;

@@ -4,6 +4,7 @@ import NotFoundError from "../errors/notFoundError.js";
 import searchHandler from "../helpers/searchHandler.js";
 import Sale from "../models/Sale.js";
 import Rental from "../models/Rental.js";
+import mongoose from "mongoose";
 
 class PropertyRepository {
     async create(propertyDTO) {
@@ -22,6 +23,7 @@ class PropertyRepository {
             bathrooms: propertyDTO.bathrooms,
             images: propertyDTO.images,
             specialType: propertyDTO.specialType,
+            agent: propertyDTO.agent,
         });
         const property = await newProperty.save();
         return property;
@@ -64,7 +66,7 @@ class PropertyRepository {
     }
 
     async getById(propertyDTO) {
-        const property = await Property.findById(propertyDTO.id);
+        const property = await Property.findById(propertyDTO.id).populate('agent');
         if (!property) {
             throw new NotFoundError();
         }
@@ -75,7 +77,7 @@ class PropertyRepository {
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
-            populate: ['type', 'specialType']
+            populate: ['type', 'specialType', 'agent']
         };
         const searchOptions = searchHandler(req);
         const properties = await Property.find(searchOptions).paginate(options);
@@ -86,14 +88,14 @@ class PropertyRepository {
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
-            populate: ['propertyId', 'agentId']
+            populate: ['propertyId', 'agentId'],
         };
 
-        const searchOptionsRental = searchHandler(req);
-        const searchOptionsSale = searchHandler(req);
 
-        const rentalProperties = await Rental.find(searchOptionsRental).paginate(options);
-        const saleProperties = await Sale.find(searchOptionsSale).paginate(options);
+        const rentalProperties = await Rental.find({tenantId: new mongoose.Types.ObjectId(userId)}).paginate(options);
+        const saleProperties = await Sale.find({
+            buyerId: new mongoose.Types.ObjectId(userId)
+        }).paginate(options);
 
         if (!rentalProperties && !saleProperties) {
             throw new NotFoundError();

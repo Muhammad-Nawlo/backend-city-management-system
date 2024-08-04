@@ -16,7 +16,7 @@ class MaintenanceRequestController {
     async create(req, res, next) {
         const imagesPath = await UploadFiles(req);
 
-        const { propertyId, tenantId, date, description, status } = req.body;
+        const {propertyId, tenantId, date, description, status} = req.body;
         const maintenanceRequestDTO = new MaintenanceRequestDTO(propertyId, tenantId, date, description, imagesPath, status);
         const newMaintenanceRequest = await maintenanceRequestService.create(maintenanceRequestDTO);
         if (!newMaintenanceRequest) {
@@ -26,8 +26,8 @@ class MaintenanceRequestController {
     }
 
     async update(req, res, next) {
-        const { id } = req.params;
-        const { status } = req.body;
+        const {id} = req.params;
+        const {status} = req.body;
         const maintenanceRequestDTO = new MaintenanceRequestDTO(null, null, null, null, null, status, id);
         const maintenanceRequest = await maintenanceRequestService.update(maintenanceRequestDTO);
         return ResponseHelper.success(res, maintenanceRequest);
@@ -46,6 +46,12 @@ class MaintenanceRequestController {
         maintenanceRequestDTO.id = req.params.id
         const maintenanceRequest = await maintenanceRequestService.get(maintenanceRequestDTO);
 
+        return ResponseHelper.success(res, maintenanceRequest);
+    }
+
+    async maintenanceRequestUser(req, res, next) {
+        const userId = req.user._id;
+        const maintenanceRequest = await maintenanceRequestService.maintenanceRequestUser(userId, req);
         return ResponseHelper.success(res, maintenanceRequest);
     }
 

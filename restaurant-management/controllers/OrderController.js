@@ -1,7 +1,6 @@
 import OrderDTO from "../dto/OrderDTO.js";
 import ResponseHelper from "../helpers/responseHelper.js";
 import OrderService from "../services/OrderService.js";
-import Item from "../models/Item.js";
 
 const orderService = new OrderService();
 
@@ -27,7 +26,7 @@ class OrderController {
     }
 
     async update(req, res, next) {
-        const { id } = req.params;
+        const {id} = req.params;
         const {
             status,
         } = req.body;
@@ -56,6 +55,12 @@ class OrderController {
         const order = await orderService.get(orderDTO);
 
         return ResponseHelper.success(res, order);
+    }
+
+    async orderUser(req, res, next) {
+        const userId = req.user._id;
+        const orderUser = await orderService.orderUser(userId, req);
+        return ResponseHelper.success(res, orderUser);
     }
 }
 
