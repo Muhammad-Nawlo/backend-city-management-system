@@ -9,6 +9,7 @@ const router = express.Router();
 
 const rentalController = new RentalController();
 
+router.get('/user', authJWT, catchErrors(rentalController.rentalUser));
 router.get('/', authJWT, catchErrors(rentalController.all));
 router.get('/search', authJWT, catchErrors(rentalController.all));
 router.post('/', authJWT, rentalValidation, validateRequest, catchErrors(rentalController.create));

@@ -11,6 +11,7 @@ const router = express.Router();
 
 const orderController = new OrderController();
 
+router.get('/user', authJWT, catchErrors(orderController.orderUser));
 router.get('/', authJWT, catchErrors(orderController.all));
 router.post('/', authJWT, orderValidation, validateRequest, catchErrors(orderController.create));
 router.put('/:id', authJWT, updateOrderValidation, validateRequest, catchErrors(orderController.update));

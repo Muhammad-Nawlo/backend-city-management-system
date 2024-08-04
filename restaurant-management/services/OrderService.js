@@ -31,6 +31,11 @@ export class OrderService {
         return orders;
     }
 
+    async orderUser(userId, req) {
+        const orders = await orderRepository.orderUser(userId, req);
+        return orders;
+    }
+
 
 }
 

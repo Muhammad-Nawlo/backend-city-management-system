@@ -67,6 +67,13 @@ class RentalController {
         return ResponseHelper.success(res, rental);
     }
 
+    async rentalUser(req, res, next) {
+        const userId = req.user._id;
+        const rental = await rentalService.rentalUser(userId, req);
+
+        return ResponseHelper.success(res, rental);
+    }
+
 }
 
 export default RentalController;

@@ -50,6 +50,9 @@ const Schema = new mongoose.Schema({
     },
     images: {
         type: Array, required: true
+    },
+    agent: {
+        type: mongoose.Types.ObjectId, ref: "Agent", required: true
     }
 }, {
     timestamps: true

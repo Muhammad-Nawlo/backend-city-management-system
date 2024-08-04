@@ -1,6 +1,7 @@
 import NotFoundError from "../errors/notFoundError.js";
 import Order from "../models/Order.js";
 import searchHandler from "../helpers/searchHandler.js";
+import mongoose from "mongoose";
 
 class OrderRepository {
     async create(orderDTO) {
@@ -49,10 +50,22 @@ class OrderRepository {
             populate: 'items.item'
         };
         const searchOptions = searchHandler(req);
-        if(userId){
+        if (userId) {
             searchOptions.user = userId;
         }
         const orders = await Order.find(searchOptions).paginate(options);
+        return orders;
+    }
+
+    async orderUser(userId, req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate: 'items.item'
+        };
+        const searchOptions = searchHandler(req);
+
+        const orders = await Order.find({user: new mongoose.Types.ObjectId(userId)}).paginate(options);
         return orders;
     }
 

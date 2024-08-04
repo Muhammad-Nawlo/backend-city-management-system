@@ -2,6 +2,7 @@ import {body} from 'express-validator';
 import existHandler from "../helpers/existHandler.js";
 import PropertyType from "../models/PropertyType.js";
 import PropertySpecialType from "../models/PropertySpecialType.js";
+import Agent from "../models/Agent.js";
 
 export const propertyValidation = [
     body('address').notEmpty().trim().isString(),
@@ -17,4 +18,5 @@ export const propertyValidation = [
     body('buildingArea').isFloat({min: 0, max: 1000}),
     body('bedrooms').isFloat({min: 0, max: 1000}),
     body('bathrooms').isFloat({min: 0, max: 1000}),
+    body('agent').exists().custom(value => existHandler(Agent, value))
 ];

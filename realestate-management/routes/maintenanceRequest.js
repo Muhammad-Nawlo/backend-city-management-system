@@ -2,8 +2,8 @@ import express from "express";
 import validateRequest from "../middlewares/validateRequest.js";
 import catchErrors from "../handlers/catchErrors.js";
 import MaintenanceRequestController from "../controllers/MaintenanceRequestController.js";
-import { maintenanceRequestValidation } from "../middlewares/maintenanceRequestValidation.js";
-import { updateMaintenanceRequestValidation } from "../middlewares/updateMaintenanceRequestValidation.js";
+import {maintenanceRequestValidation} from "../middlewares/maintenanceRequestValidation.js";
+import {updateMaintenanceRequestValidation} from "../middlewares/updateMaintenanceRequestValidation.js";
 import authJWT from "../middlewares/authJWT.js";
 
 const router = express.Router();
@@ -11,6 +11,7 @@ const router = express.Router();
 
 const maintenanceController = new MaintenanceRequestController();
 
+router.get('/user', authJWT, catchErrors(maintenanceController.maintenanceRequestUser));
 router.get('/', authJWT, catchErrors(maintenanceController.all));
 router.get('/search', authJWT, catchErrors(maintenanceController.all));
 router.post('/', authJWT, maintenanceRequestValidation, validateRequest, catchErrors(maintenanceController.create));

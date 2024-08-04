@@ -1,8 +1,8 @@
 import Rental from "../models/Rental.js";
 
 import NotFoundError from "../errors/notFoundError.js";
-import { populate } from "dotenv";
 import searchHandler from "../helpers/searchHandler.js";
+import mongoose from "mongoose";
 
 class RentalRepository {
     async create(rentalDTO) {
@@ -19,14 +19,14 @@ class RentalRepository {
 
     async update(rentalDTO) {
         const rental = await Rental.findByIdAndUpdate(rentalDTO.id, {
-            carId: rentalDTO.carId,
-            userId: rentalDTO.userId,
-            startDate: rentalDTO.startDate,
-            endDate: rentalDTO.endDate,
-            location: rentalDTO.location
-        }, {
-            new: true
-        }
+                carId: rentalDTO.carId,
+                userId: rentalDTO.userId,
+                startDate: rentalDTO.startDate,
+                endDate: rentalDTO.endDate,
+                location: rentalDTO.location
+            }, {
+                new: true
+            }
         );
         if (!rental) {
             throw new NotFoundError();
@@ -47,7 +47,7 @@ class RentalRepository {
             {
                 path: "carId",
                 populate: {
-                    path:"type"
+                    path: "type"
                 }
             }
         ]);
@@ -63,18 +63,28 @@ class RentalRepository {
             page: req.query.page || 1,
             limit: req.query.items || 10,
             populate: {
-                    path: 'carId',
-                    populate: {
-                        path: 'type',
-                    }
-                },
-            
+                path: 'carId',
+                populate: {
+                    path: 'type',
+                }
+            },
+
         };
         const searchOptions = searchHandler(req);
         // if(userId){
         //     searchOptions.user = userId;
         // }
         const rentals = await Rental.find(searchOptions).paginate(options);
+        return rentals;
+    }
+
+    async rentalUser(userId, req) {
+        const options = {
+            page: req.query.page || 1,
+            limit: req.query.items || 10,
+            populate: 'carId'
+        };
+        const rentals = await Rental.find({userId: new mongoose.Types.ObjectId(userId)}).paginate(options);
         return rentals;
     }
 }

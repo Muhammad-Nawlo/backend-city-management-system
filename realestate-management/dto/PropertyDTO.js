@@ -14,6 +14,7 @@ class PropertyDTO {
         bathrooms = null,
         images = null,
         specialType = null,
+        agent = null,
         id = null
     ) {
         this.address = address;
@@ -30,6 +31,7 @@ class PropertyDTO {
         this.bathrooms = bathrooms;
         this.images = images;
         this.specialType = specialType;
+        this.agent = agent;
         this.id = id;
     }
 }

@@ -34,6 +34,11 @@ export class RentalService {
         const rental = await rentalRepository.getById(rentalDTO);
         return rental;
     }
+
+    async rentalUser(userId,req) {
+        const rental = await rentalRepository.rentalUser(userId,req);
+        return rental;
+    }
 }
 
 export default RentalService;

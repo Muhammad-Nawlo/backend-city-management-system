@@ -13,6 +13,7 @@ class PropertyController {
     }
 
     async create(req, res, next) {
+
         const imagesPath = await UploadFiles(req);
 
         const {
@@ -45,7 +46,8 @@ class PropertyController {
             bedrooms,
             bathrooms,
             imagesPath,
-            specialType
+            specialType,
+            req.user._id
         );
         const newProperty = await propertyService.create(propertyDTO);
         if (!newProperty) {
@@ -88,6 +90,7 @@ class PropertyController {
             bathrooms,
             imagesPath,
             specialType,
+            req.user._id,
             id);
         const property = await propertyService.update(propertyDTO);
         return ResponseHelper.success(res, property);
@@ -110,8 +113,8 @@ class PropertyController {
     }
 
     async propertyUser(req, res, next) {
-        const userId = req.user.id;
-        const property = await propertyService.userProperty(userId,req);
+        const userId = req.user._id;
+        const property = await propertyService.userProperty(userId, req);
 
         return ResponseHelper.success(res, property);
     }
