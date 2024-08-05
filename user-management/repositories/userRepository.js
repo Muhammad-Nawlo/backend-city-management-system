@@ -34,7 +34,6 @@ class UserRepository {
             user.image = userDTO.image;
         }
         await user.save();
-
         return user;
     }
 

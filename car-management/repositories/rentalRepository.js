@@ -87,6 +87,7 @@ class RentalRepository {
         const rentals = await Rental.find({userId: new mongoose.Types.ObjectId(userId)}).paginate(options);
         return rentals;
     }
+
 }
 
 export default RentalRepository;

@@ -22,24 +22,25 @@ class CarRepository {
     }
 
     async update(carDTO) {
-        const car = await Car.findByIdAndUpdate(carDTO.id, {
-            make: carDTO.make,
-            model: carDTO.model,
-            year: carDTO.year,
-            capacity: carDTO.capacity,
-            registrationNumber: carDTO.registrationNumber,
-            price: carDTO.price,
-            status: carDTO.status,
-            images: carDTO.images,
-            color: carDTO.color,
-            type: carDTO.type
-        }, {
-            new: true
-        }
-        );
+
+        const car = await Car.findById(carDTO.id);
         if (!car) {
             throw new NotFoundError();
         }
+        car.make = carDTO.make;
+        car.model = carDTO.model;
+        car.year = carDTO.year;
+        car.capacity = carDTO.capacity;
+        car.registrationNumber = carDTO.registrationNumber;
+        car.price = carDTO.price;
+        car.status = carDTO.status;
+        car.color = carDTO.color;
+        car.type = carDTO.type;
+
+        if (carDTO.images !== 'DONT_UPDATE') {
+            car.images = carDTO.images;
+        }
+        await car.save();
         return car;
     }
 

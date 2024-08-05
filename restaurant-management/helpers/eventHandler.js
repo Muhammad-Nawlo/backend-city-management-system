@@ -2,9 +2,9 @@ import axios from "axios";
 import config from "../config/config.js";
 import NotFoundError from "../errors/notFoundError.js";
 
-export default async function (data, event = 'GET_USER') {
+export default async function (data) {
     const payload = {
-        event: event,
+        event: "GET_USER",
         data: data
     }
     const response = await axios.post(config.userServiceEvent, {payload: JSON.stringify(payload)});

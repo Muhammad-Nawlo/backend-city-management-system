@@ -28,12 +28,7 @@ const Schema = new mongoose.Schema({
         type: String,
         allowNull: true
     },
-    status: {
-        type: String,
-        enum: ['Available', 'Blocked', 'Unverified'],
-        default: 'Available'
-    },
-    hash: {
+        hash: {
         type: String, allowNull: false, required: true
     },
     salt: {

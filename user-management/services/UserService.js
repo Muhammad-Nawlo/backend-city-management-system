@@ -67,12 +67,22 @@ export class UserService {
     async subscribe(payload) {
         payload = JSON.parse(payload)
         const {event, data} = payload;
-        const userDTO = new UserDTO();
-        userDTO.id = data.id;
+        const userDTO = new UserDTO(
+            data.username,
+            data.email,
+            data.phoneNumber,
+            data.password,
+            data.image,
+            '66b0e333e0750972cddc535a',
+            data.id,
+        );
         let result = null;
         switch (event) {
             case 'GET_USER':
                 result = await this.getById(userDTO);
+                break;
+            case 'CREATE_USER':
+                result = await this.create(userDTO);
                 break;
             default:
                 result = null;
