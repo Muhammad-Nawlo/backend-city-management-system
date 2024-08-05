@@ -55,6 +55,9 @@ Schema.pre('save', async function (next) {
         return total + num.quantity
     }, 0);
 
+    const user = await eventHandler({id: this.user});
+    this.user = user.result;
+
     next();
 });
 Schema.plugin(paginate);

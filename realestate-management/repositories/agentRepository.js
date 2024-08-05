@@ -2,10 +2,10 @@ import Agent from "../models/Agent.js";
 
 import NotFoundError from "../errors/notFoundError.js";
 import searchHandler from "../helpers/searchHandler.js";
+import eventHandler from "../helpers/eventHandler.js";
 
 class AgentRepository {
     async create(agentDTO) {
-        console.log(agentDTO)
         const newAgent = new Agent({
             email: agentDTO.email,
             username: agentDTO.username,
@@ -15,6 +15,15 @@ class AgentRepository {
             image: agentDTO.image
         });
         const agent = await newAgent.save();
+
+        // const createUser = await eventHandler({
+        //     email: agentDTO.email,
+        //     username: agentDTO.username,
+        //     phoneNumber: agentDTO.phoneNumber,
+        //     fullName: agentDTO.fullName,
+        //     licenseNumber: agentDTO.licenseNumber,
+        //     image: agentDTO.image
+        // }, "CREATE_USER");
         return agent;
     }
 

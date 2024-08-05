@@ -23,6 +23,9 @@ const Schema = new mongoose.Schema({
     location: {
         type: String, required: true, allowNull: false
     },
+    user: {
+        type: Object
+    },
     status: {
         type: String,
         enum: ['Pending', 'Rent', 'Canceled', 'New', 'Done'],
@@ -36,8 +39,15 @@ Schema.pre('save', async function (next) {
     const car = await Car.findById(this.carId);
     const numberOfDays = Math.round((this.endDate - this.startDate) / (1000 * 60 * 60 * 24))
     this.totalPrice = car.price * (numberOfDays - 1);
+
+    const user = await eventHandler({id: this.userId});
+    this.user = user.result;
+
     next();
 });
+
+Schema.set('toJSON', {virtuals: true});
+Schema.set('toObject', {virtuals: true});
 
 Schema.plugin(paginate);
 
