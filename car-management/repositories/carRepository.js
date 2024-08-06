@@ -70,6 +70,16 @@ class CarRepository {
         const cars = await Car.find(searchOptions).paginate(options);
         return cars;
     }
+
+    async changeStatus(carDTO) {
+        const car = await Car.findById(carDTO.id);
+        if (!car) {
+            throw new NotFoundError();
+        }
+        car.status = carDTO.status;
+        await car.save();
+        return car;
+    }
 }
 
 export default CarRepository;

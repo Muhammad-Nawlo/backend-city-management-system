@@ -88,6 +88,15 @@ class RentalRepository {
         return rentals;
     }
 
+    async changeStatus(rentalDTO) {
+        const rental = await Rental.findById(rentalDTO.id);
+        if (!rental) {
+            throw new NotFoundError();
+        }
+        rental.status = rentalDTO.status;
+        await rental.save();
+        return rental;
+    }
 }
 
 export default RentalRepository;

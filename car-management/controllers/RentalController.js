@@ -16,13 +16,15 @@ class RentalController {
             userId,
             startDate,
             endDate,
-            location
+            location,
+            status
         } = req.body;
         const rentalDTO = new RentalDTO(carId,
             userId,
             startDate,
             endDate,
-            location
+            location,
+            status
         );
         const newRental = await rentalService.create(rentalDTO);
         if (!newRental) {
@@ -38,13 +40,15 @@ class RentalController {
             userId,
             startDate,
             endDate,
-            location
+            location,
+            status
         } = req.body;
         const rentalDTO = new RentalDTO(carId,
             userId,
             startDate,
             endDate,
             location,
+            status,
             id
         );
         const rental = await rentalService.update(rentalDTO);
@@ -71,6 +75,15 @@ class RentalController {
         const userId = req.user._id;
         const rental = await rentalService.rentalUser(userId, req);
 
+        return ResponseHelper.success(res, rental);
+    }
+
+    async changeStatus(req, res, next) {
+        const {status} = req.body;
+        const rentalDTO = new RentalDTO();
+        rentalDTO.id = req.params.id;
+        rentalDTO.status = status
+        const rental = await rentalService.changeStatus(rentalDTO);
         return ResponseHelper.success(res, rental);
     }
 

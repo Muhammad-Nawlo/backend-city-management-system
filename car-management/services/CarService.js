@@ -34,6 +34,10 @@ export class CarService {
         const car = await carRepository.getById(carDTO);
         return car;
     }
+    async changeStatus(carDTO) {
+        const car = await carRepository.changeStatus(carDTO);
+        return car;
+    }
 }
 
 export default CarService;
