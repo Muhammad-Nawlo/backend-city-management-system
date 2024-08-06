@@ -69,6 +69,16 @@ class OrderRepository {
         return orders;
     }
 
+    async changeStatus(orderDTO) {
+        const order = await Order.findById(orderDTO.id);
+        if (!order) {
+            throw new NotFoundError();
+        }
+        order.status = orderDTO.status;
+        await order.save();
+        return order;
+    }
+
 }
 
 export default OrderRepository;

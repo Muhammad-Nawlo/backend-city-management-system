@@ -62,6 +62,15 @@ class OrderController {
         const orderUser = await orderService.orderUser(userId, req);
         return ResponseHelper.success(res, orderUser);
     }
+
+    async changeStatus(req, res, next) {
+        const {status} = req.body;
+        const orderDTO = new OrderDTO();
+        orderDTO.id = req.params.id;
+        orderDTO.status = status
+        const order = await orderService.changeStatus(orderDTO);
+        return ResponseHelper.success(res, order);
+    }
 }
 
 export default OrderController;

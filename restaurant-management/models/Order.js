@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Item from "./Item.js";
 import paginate from 'mongoose-paginate-v2';
+import eventHandler from "../helpers/eventHandler.js";
 
 const Schema = new mongoose.Schema({
     items: [{
@@ -23,6 +24,9 @@ const Schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
+    },
+    userId: {
+        type: Object,
     },
     totalAmount: {
         type: Number,
@@ -56,7 +60,7 @@ Schema.pre('save', async function (next) {
     }, 0);
 
     const user = await eventHandler({id: this.user});
-    this.user = user.result;
+    this.userId = user.result;
 
     next();
 });
