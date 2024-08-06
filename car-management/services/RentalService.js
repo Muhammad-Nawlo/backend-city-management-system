@@ -35,8 +35,13 @@ export class RentalService {
         return rental;
     }
 
-    async rentalUser(userId,req) {
-        const rental = await rentalRepository.rentalUser(userId,req);
+    async rentalUser(userId, req) {
+        const rental = await rentalRepository.rentalUser(userId, req);
+        return rental;
+    }
+
+    async changeStatus(rentalDTO) {
+        const rental = await rentalRepository.changeStatus(rentalDTO);
         return rental;
     }
 }

@@ -86,6 +86,16 @@ class CarController {
         return ResponseHelper.success(res, car);
     }
 
+    async changeStatus(req, res, next) {
+        const {status} = req.body;
+        const carDTO = new CarDTO();
+        carDTO.id = req.params.id;
+        carDTO.status = status
+        const car = await carService.changeStatus(carDTO);
+
+        return ResponseHelper.success(res, car);
+    }
+
 }
 
 export default CarController;
