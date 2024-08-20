@@ -6,14 +6,14 @@
 
 import app from '../app.js';
 import createDebug from 'debug';
-
-const debug = createDebug('car-management:server');
-
 import http from "http";
 // get config
 import config from '../config/config.js';
 
 import mongoose from "mongoose";
+
+
+const debug = createDebug('car-management:server');
 
 /**
  * Get port from environment and store in Express.
@@ -36,6 +36,7 @@ mongoose.connect(config.mongoConnection).then(() => {
 }).catch((err) => {
     console.error('Error connecting to the database:', err.message);
 });
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

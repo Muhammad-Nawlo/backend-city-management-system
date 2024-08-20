@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import config from "../config/config.js";
 import paginate from 'mongoose-paginate-v2';
+import eventHandler from "../helpers/eventHandler.js";
 
 const Schema = new mongoose.Schema({
     address: {
@@ -52,10 +53,20 @@ const Schema = new mongoose.Schema({
         type: Array, required: true
     },
     agent: {
-        type: mongoose.Types.ObjectId, ref: "Agent", required: true
+        type: mongoose.Types.ObjectId
+    },
+    agentId: {
+        type: Object
     }
 }, {
     timestamps: true
+});
+
+Schema.pre('save', async function (next) {
+
+    const agentId = await eventHandler({id: this.agent});
+    this.agentId= agentId?.result;
+    next();
 });
 Schema.virtual('fullImagesUrl').get(function () {
     return this.images.map(image => `${config.fileUrl}${image}`);

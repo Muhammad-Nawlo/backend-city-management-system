@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import paginate from 'mongoose-paginate-v2';
+import eventHandler from "../helpers/eventHandler.js";
 
 const Schema = new mongoose.Schema({
     rentalId: {
@@ -8,6 +9,9 @@ const Schema = new mongoose.Schema({
     },
     tenantId: {
         type: mongoose.Schema.ObjectId, required: true, allowNull: false
+    },
+    tenant: {
+        type: Object
     },
     date: {
         type: Date, required: true
@@ -17,6 +21,12 @@ const Schema = new mongoose.Schema({
     }
 }, {
     timestamps: true
+});
+Schema.pre('save', async function (next) {
+    const tenant = await eventHandler({id: this.tenantId});
+    this.tenant = tenant.result;
+
+    next();
 });
 Schema.plugin(paginate);
 

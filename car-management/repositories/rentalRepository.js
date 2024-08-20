@@ -82,7 +82,12 @@ class RentalRepository {
         const options = {
             page: req.query.page || 1,
             limit: req.query.items || 10,
-            populate: 'carId'
+            populate: {
+                path: 'carId',
+                populate: {
+                    path: 'type',
+                }
+            },
         };
         const rentals = await Rental.find({userId: new mongoose.Types.ObjectId(userId)}).paginate(options);
         return rentals;
@@ -95,6 +100,7 @@ class RentalRepository {
         }
         rental.status = rentalDTO.status;
         await rental.save();
+        // await sendNotification(rental.user.fcmToken)
         return rental;
     }
 }

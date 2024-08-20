@@ -11,8 +11,8 @@ class SaleController {
     }
 
     async create(req, res, next) {
-        const {propertyId, buyerId, agentId, date, price} = req.body;
-        const saleDTO = new SaleDTO(propertyId, buyerId, agentId, date, price);
+        const {propertyId, buyerId, date, price} = req.body;
+        const saleDTO = new SaleDTO(propertyId, buyerId, req.user?._id, date, price);
         const newSale = await saleService.create(saleDTO);
         if (!newSale) {
             return next(res);
@@ -23,7 +23,7 @@ class SaleController {
     async update(req, res, next) {
         const {id} = req.params;
         const {propertyId, buyerId, agentId, date, price} = req.body;
-        const saleDTO = new SaleDTO(propertyId, buyerId, agentId, date, price, id);
+        const saleDTO = new SaleDTO(propertyId, buyerId, req.user?._id, date, price, id);
         const sale = await saleService.update(saleDTO);
         return ResponseHelper.success(res, sale);
     }

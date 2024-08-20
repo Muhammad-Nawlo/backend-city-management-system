@@ -11,8 +11,8 @@ class RentalController {
     }
 
     async create(req, res, next) {
-        const {propertyId, tenantId, agentId, startDate, endDate, monthlyRent} = req.body;
-        const rentalDTO = new RentalDTO(propertyId, tenantId, agentId, startDate, endDate, monthlyRent);
+        const {propertyId, tenantId, startDate, endDate, monthlyRent} = req.body;
+        const rentalDTO = new RentalDTO(propertyId, tenantId, req?.user?._id, startDate, endDate, monthlyRent);
         const newRental = await rentalService.create(rentalDTO);
         if (!newRental) {
             return next(res);
@@ -22,8 +22,8 @@ class RentalController {
 
     async update(req, res, next) {
         const {id} = req.params;
-        const {propertyId, tenantId, agentId, startDate, endDate, monthlyRent} = req.body;
-        const rentalDTO = new RentalDTO(propertyId, tenantId, agentId, startDate, endDate, monthlyRent, id);
+        const {propertyId, tenantId, startDate, endDate, monthlyRent} = req.body;
+        const rentalDTO = new RentalDTO(propertyId, tenantId, req?.user?._id, startDate, endDate, monthlyRent, id);
         const rental = await rentalService.update(rentalDTO);
         return ResponseHelper.success(res, rental);
     }
